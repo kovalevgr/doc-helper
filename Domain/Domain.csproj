@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>DocHelper.Domain</AssemblyName>
+        <RootNamespace>DocHelper.Domain</RootNamespace>
+        <Company>DocHelper.Domain</Company>
+        <Product>DocHelper.Domain</Product>
+    </PropertyGroup>
+
+</Project>
