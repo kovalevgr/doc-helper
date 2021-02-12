@@ -1,0 +1,53 @@
+<script>var newSearcher;</script>
+
+<div class="finder" id="searchAll">
+  <fieldset>
+    <div class="finder__field finder__field_hide">
+      <select class="select7 select7_dropdown select-type" id="filter_search">
+        <option value="Doctor" class="select-type__item">Поиск врача</option>
+        <option value="Hospital" class="select-type__item">Поиск клиники</option>
+        <option value="Dc" class="select-type__item">Поиск диагностики</option>
+        <option value="Analysis" class="select-type__item">Поиск анализа</option>
+        <option value="Offer" class="select-type__item">Поиск предложения</option>
+      </select>
+      <div class="finder__right-block"><i class="triagle"></i></div>
+    </div>
+    <div class="searchDoctor filter-search-block">
+
+      <div class="finder__field finder__field-icon-doctors js-location-lists"
+           data-target="#select-specialization">
+        <input type="text" placeholder="Введите специальность или фамилию врача"
+               class="all-search__input finder__field-text form-control" name="query"/>
+        <div style="display: none;" class="icon-clean js-remove-value"></div>
+        <div class="finder__right-block" data-target="#select-specialization"
+             data-toggle="modal"><i class="triagle"></i><span class="finder__field_img"></span>
+        </div>
+        <input type="hidden" id="selectService">
+        <input type="hidden" id="selectLanguage"/>
+        <div style="display: none;" class="search-result">
+          <ul data-simplebar data-simplebar-autohide="false" class="livesearch top-list"></ul>
+        </div>
+        <div style="display: none;" class="index-no-result result-message__danger"></div>
+      </div>
+      <div data-target="#select-area"
+           class="finder__field finder__field-icon-location js-finder-scroll js-location-lists">
+        <input type="text" placeholder="Введите&nbsp;район или метро"
+               class="finder__field-text form-control locations-all-input">
+        <div style="display: none" class="icon-clean js-remove-value"></div>
+        <div data-target="#select-area" data-toggle="modal" class="finder__right-block"><i
+          class="triagle"></i><span class="finder__field_img"> </span></div>
+        <input type="hidden" id="selectArea" getstartsearch>
+        <div style="display: none;" class="loc-search-result">
+          <ul data-simplebar data-simplebar-autohide="false" class="location-lists"></ul>
+        </div>
+        <div style="display: none;" class="index-no-result result-message__danger"></div>
+      </div>
+      <div class="finder__submit">
+        <button type="submit" class="btn btn-warning form-control search-button-default">Найти
+          врача
+        </button>
+      </div>
+
+    </div>
+  </fieldset>
+</div>
