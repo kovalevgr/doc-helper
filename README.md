@@ -15,3 +15,18 @@ This layer contains classes for accessing external resources such as file system
 ### Web
 
 This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+
+## Database Migrations
+
+### Add new migration
+For example, to add a new migration from the root folder:
+
+`dotnet ef migrations add "SampleMigration" --project src\Infrastructure --startup-project src\Web --output-dir Persistence\Migrations`
+
+### Update migration
+
+`dotnet ef database update --project src\Infrastructure --startup-project src\Web`
+
+### Drop migration
+
+`dotnet ef database drop --project src\Infrastructure --startup-project src\Web`
