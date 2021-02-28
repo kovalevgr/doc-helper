@@ -28,73 +28,20 @@
         </svg>
       </a>
 
-      <div class="location drop">
-        <div class="drop__toggler">
-          <span class="location__info">Киев</span><i class="i i--drop"></i></div>
+      <div class="location drop" [ngClass]="{'is--dropped': isDropped}">
+        <div class="drop__toggler" (click)="changeDropped()">
+          <span class="location__info">{{ locationService.userLocation() }}</span><i class="i i--drop"></i></div>
         <div class="drop__body" id="simplebar1" data-simplebar data-simplebar-autohide="false">
-          <ul class="location__list">
-            <li class="location__item"><a data-value="1" href="index.html" class="location__link">Киев<i
-              class="i i--drop"></i></a></li>
-            <li class="location__item"><a data-value="44" href="belaya-cerkva.html" class="location__link">Белая
-              Церковь</a></li>
-            <li class="location__item"><a data-value="54" href="berdyansk.html" class="location__link">Бердянск</a>
+          <ul class="location__list" *ngIf="locations">
+
+            <li class="location__item" *ngFor="let location of locations | async">
+              <a
+                class="location__link"
+                [text]="location.city"
+                (click)="changeLocation(location)"
+              ><i class="i i--drop"></i></a>
             </li>
-            <li class="location__item"><a data-value="46" href="brovary.html"
-                                          class="location__link">Бровары</a></li>
-            <li class="location__item"><a data-value="11" href="vinnica.html"
-                                          class="location__link">Винница</a></li>
-            <li class="location__item"><a data-value="6" href="dnepropetrovsk.html" class="location__link">Днепр</a>
-            </li>
-            <li class="location__item"><a data-value="13" href="zhitomir.html" class="location__link">Житомир</a>
-            </li>
-            <li class="location__item"><a data-value="10" href="zaporozhe.html" class="location__link">Запорожье</a>
-            </li>
-            <li class="location__item"><a data-value="16" href="ivano-frankovsk.html"
-                                          class="location__link">Ивано-Франковск</a></li>
-            <li class="location__item"><a data-value="18" href="irpen.html"
-                                          class="location__link">Ирпень</a></li>
-            <li class="location__item"><a data-value="15" href="kremenchug.html" class="location__link">Кременчуг</a>
-            </li>
-            <li class="location__item"><a data-value="7" href="krivoj-rog.html" class="location__link">Кривой
-              Рог</a></li>
-            <li class="location__item"><a data-value="39" href="kirovograd.html" class="location__link">Кропивницкий</a>
-            </li>
-            <li class="location__item"><a data-value="71" href="lisichansk.html" class="location__link">Лисичанск</a>
-            </li>
-            <li class="location__item"><a data-value="36" href="luck.html" class="location__link">Луцк</a>
-            </li>
-            <li class="location__item"><a data-value="8" href="lviv.html" class="location__link">Львов</a>
-            </li>
-            <li class="location__item"><a data-value="35" href="mariupol.html" class="location__link">Мариуполь</a>
-            </li>
-            <li class="location__item"><a data-value="5" href="nikolaev.html" class="location__link">Николаев</a>
-            </li>
-            <li class="location__item"><a data-value="9" href="odessa.html"
-                                          class="location__link">Одесса</a></li>
-            <li class="location__item"><a data-value="14" href="poltava.html"
-                                          class="location__link">Полтава</a></li>
-            <li class="location__item"><a data-value="30" href="rovno.html" class="location__link">Ровно</a>
-            </li>
-            <li class="location__item"><a data-value="12" href="sumy.html" class="location__link">Сумы</a>
-            </li>
-            <li class="location__item"><a data-value="49" href="ternopol.html" class="location__link">Тернополь</a>
-            </li>
-            <li class="location__item"><a data-value="27" href="uzhgorod.html" class="location__link">Ужгород</a>
-            </li>
-            <li class="location__item"><a data-value="3" href="kharkov.html"
-                                          class="location__link">Харьков</a></li>
-            <li class="location__item"><a data-value="26" href="herson.html"
-                                          class="location__link">Херсон</a></li>
-            <li class="location__item"><a data-value="24" href="hmelnickij.html" class="location__link">Хмельницкий</a>
-            </li>
-            <li class="location__item"><a data-value="23" href="cherkasi.html" class="location__link">Черкассы</a>
-            </li>
-            <li class="location__item"><a data-value="22" href="chernigov.html" class="location__link">Чернигов</a>
-            </li>
-            <li class="location__item"><a data-value="4" href="chernovtsy.html" class="location__link">Черновцы</a>
-            </li>
-            <li class="location__item"><a data-value="99" href="chernomorsk.html" class="location__link">Черноморск</a>
-            </li>
+
           </ul>
         </div>
       </div>
@@ -279,8 +226,12 @@
       <nav class="header__nav">
         <div class="mobmenu">
           <ul class="mobmenu__list" id="yw0">
-            <li class="mobmenu__item mobmenu__item--doc"><a class="mobmenu__link" title="Каталог врачей"
-                                                            routerLink="doctors/kiev"><i class="i">
+            <li class="mobmenu__item mobmenu__item--doc">
+              <a
+                class="mobmenu__link"
+                title="Каталог врачей"
+                [routerLink]="['doctors', locationService.userLocation() | lowercase]"
+              ><i class="i">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
                 <g>
                   <path class="doctor-svg"
@@ -298,8 +249,11 @@
                 </g>
               </svg>
             </i>Врачи</a></li>
-            <li class="mobmenu__item mobmenu__item--cli"><a class="mobmenu__link" title="Клиники"
-                                                            href="kliniki/kiev/all.html"><i class="i">
+            <li class="mobmenu__item mobmenu__item--cli"><a
+              class="mobmenu__link"
+              title="Клиники"
+              [routerLink]="['kliniki', locationService.userLocation() | lowercase, 'all']"
+            ><i class="i">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
                 <g>
                   <path class="clinic-svg"
@@ -345,15 +299,23 @@
                 </g>
               </svg>
             </i>Клиники</a></li>
-            <li class="mobmenu__item mobmenu__item--dia"><a class="mobmenu__link" title="Диагностика"
-                                                            href="diagnostics/kiev/all.html"><i class="i">
+            <li class="mobmenu__item mobmenu__item--dia">
+              <a
+                class="mobmenu__link"
+                title="Диагностика"
+                [routerLink]="['diagnostics', locationService.userLocation() | lowercase, 'all']"
+              ><i class="i">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
                 <path class="diagnost-svg"
                       d="M211.3 268.3H93.1c-4.7 0-8.6-3.8-8.6-8.6 0-4.7 3.8-8.6 8.6-8.6h20.8v-26.4H24.2c-4.7 0-8.6-3.8-8.6-8.6V40.4c0-4.7 3.8-8.6 8.6-8.6h251.6c4.7 0 8.6 3.8 8.6 8.6v175.9c0 4.7-3.8 8.6-8.6 8.6h-85.3v26.4h20.8c4.7 0 8.6 3.8 8.6 8.6 0 4.6-3.8 8.4-8.6 8.4zM131 251.2h42.5v-26.4H131v26.4zm-98.3-43.5h234.5V48.9H32.7v158.8zm111-11.9c-3.8 0-7.2-2.5-8.2-6.2-6.7-23-11.8-44.1-17-66.9l-14.8 59.9c-.9 3.7-4.1 6.3-7.9 6.5-3.8.3-7.2-2.2-8.5-5.8L77.9 156H52.3c-4.7 0-8.6-3.8-8.6-8.6 0-4.7 3.8-8.6 8.6-8.6h31.6c3.7 0 6.9 2.3 8.1 5.8l1.9 5.6 16.5-66.7c.9-3.8 4.4-6.5 8.3-6.5h.1c4 0 7.4 2.8 8.3 6.7l3.7 16.4c4.4 19.2 8.4 36.8 12.8 54.5l2.6-9.5c1-3.7 4.4-6.3 8.3-6.3H165L176.5 71c.7-4.1 4.3-7.1 8.4-7.1h.1c4.2 0 7.8 3.2 8.4 7.3l9.8 67.7H240c4.7 0 8.6 3.8 8.6 8.6 0 4.7-3.8 8.6-8.6 8.6h-44.2c-4.3 0-7.9-3.1-8.5-7.3l-3-20.9-3.5 21.1c-.7 4.1-4.3 7.1-8.4 7.1h-11.2l-9.2 33.4c-1.1 3.7-4.4 6.3-8.3 6.3z"/>
               </svg>
             </i>Диагностика</a></li>
-            <li class="mobmenu__item mobmenu__item--akc"><a class="mobmenu__link" title="Акции"
-                                                            href="promotions/kiev/all.html"><i class="i">
+            <li class="mobmenu__item mobmenu__item--akc">
+              <a
+                class="mobmenu__link"
+                title="Акции"
+                [routerLink]="['promotions', locationService.userLocation() | lowercase, 'all']"
+              ><i class="i">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="-270 148.3 300 300">
                 <path class="action-svg"
                       d="M-102.8 425.5c-5.7 0-11.3-2.2-15.6-6.5l-113.1-113.1c-7.3-7.3-11.3-17.4-11.1-27.7l1.2-50.5c.2-9.8 4.2-19 11.1-26l6.8-6.8c6.9-6.9 16.2-10.9 26-11.1l50.5-1.2c10.2-.3 20.4 3.8 27.7 11.1L-6.2 306.8c8.6 8.6 8.6 22.7 0 31.3L-87.1 419c-4.3 4.3-10 6.5-15.7 6.5zm-43.3-225.8h-.5l-50.5 1.2c-5.4.1-10.4 2.3-14.2 6.1l-6.9 6.8c-3.8 3.8-6 8.9-6.1 14.2l-1.2 50.5c-.1 5.7 2.1 11.2 6.1 15.2l113.1 113.1c1.9 1.9 5.1 1.9 7 0l80.9-80.9c1.9-1.9 1.9-5.1 0-7l-113.1-113.1c-3.8-3.9-9.1-6.1-14.6-6.1z"/>
@@ -363,8 +325,12 @@
                       d="M-54.9 276.8c-4.2 0-7.9-3.1-8.5-7.4-.6-4.7 2.6-9 7.3-9.7 10.5-1.5 19.9-3.7 27.8-6.5 15.1-5.5 19.1-11.3 19.1-13.6 0-2.3-4-8.1-19.1-13.6-31.3-11.4-82.2-11.4-113.4 0-12.9 4.7-18.3 9.9-19 13-.3 1.4.5 3.1 2.5 5.1 3.3 3.3 3.4 8.8 0 12.1-3.3 3.3-8.8 3.4-12.1 0-6.2-6.2-8.8-13.6-7.2-20.9 1.6-7.2 8.1-17.5 29.9-25.4 35.1-12.7 90-12.7 125.1 0C2.7 218.9 8 231 8 239.5s-5.3 20.6-30.4 29.7c-9.1 3.3-19.6 5.8-31.3 7.4-.4.1-.8.2-1.2.2z"/>
               </svg>
             </i>Акции</a></li>
-            <li class="mobmenu__item mobmenu__item--ana"><a class="mobmenu__link" title="Анализы"
-                                                            href=""><i class="i">
+            <li class="mobmenu__item mobmenu__item--ana">
+              <a
+                class="mobmenu__link"
+                title="Анализы"
+                [routerLink]="['analizi', locationService.userLocation() | lowercase, 'all']"
+              ><i class="i">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
                 <g>
                   <path class="analyze-svg"
@@ -391,8 +357,12 @@
                 <path fill="none" d="M-1545-117h28v52h-28z"/>
               </svg>
             </i>Анализы</a></li>
-            <li class="mobmenu__item mobmenu__item--ana"><a class="mobmenu__link" title="Аптека"
-                                                            href="apteka.html"><span
+            <li class="mobmenu__item mobmenu__item--ana">
+              <a
+                class="mobmenu__link"
+                title="Аптека"
+                [routerLink]="['apteka']"
+              ><span
               class="mobmenu__link_new">
 <svg width="34" height="17" viewBox="0 0 34 17" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="34"
                                                                                                      height="17" rx="4"

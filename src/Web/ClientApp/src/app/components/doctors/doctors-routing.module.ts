@@ -2,7 +2,7 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import {DoctorsListComponent} from "./list/doctors-list.component";
-import {LocationGuard} from "../guards/location.guard";
+import {LocationGuard} from "../../guards/location.guard";
 
 const doctorsRoutes: Routes = [
   { path: ':city', component: DoctorsListComponent, canActivate: [LocationGuard] },

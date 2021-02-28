@@ -5,18 +5,16 @@
         <section>
           <ul class="chooser__list">
 
-            <li class='chooser__list__item' [class.visible]="specialty.active" *ngFor="let specialty of specialties">
+            <li class='chooser__list__item' [class.visible]="specialty.active" *ngFor="let specialty of specialities$ | async; index as i">
               <p class="chooser__list__item-wrapper">
-                <a
-                  class="chooser__list__item-link"
-                  [text]="specialty.title" [routerLink]="['doctors','kiev', specialty.alias]"></a>
+                <a class="chooser__list__item-link" [text]="specialty.title" [routerLink]="['doctors', locationService.userLocation() , specialty.alias]"></a>
                 <span class="chooser__list__quantity">{{ specialty.count }}</span>
               </p>
             </li>
           </ul>
           <div class="chooser__more" >
             <a href="javascript:void(0);" title="Все специальности"
-               class="chooser__more-link chooser__more-link_js" (click)="showAllSpecialties()">Все {{ specialties.length }} специальностей</a>
+               class="chooser__more-link chooser__more-link_js" (click)="showAllSpecialties()">Все специальности</a>
           </div>
         </section>
       </div>

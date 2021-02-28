@@ -23,11 +23,11 @@
 
     <ItemGroup>
       <Folder Include="Persistence\Migrations" />
-      <Folder Include="Persistence\Seeds" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Application\Application.csproj" />
+      <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
 </Project>

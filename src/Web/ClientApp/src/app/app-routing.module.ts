@@ -2,17 +2,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule),
     pathMatch: 'full'
   },
   {
     path: 'doctors',
-    loadChildren: () => import('./doctors/doctors.module').then(m => m.DoctorsModule)
+    loadChildren: () => import('./components/doctors/doctors.module').then(m => m.DoctorsModule)
   },
   { path: '',   redirectTo: '/', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
