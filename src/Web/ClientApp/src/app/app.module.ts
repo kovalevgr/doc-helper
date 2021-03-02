@@ -1,3 +1,4 @@
+import {AngularSvgIconModule} from "angular-svg-icon";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +15,7 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
     NavMenuComponent,
   ],
   imports: [
+    AngularSvgIconModule.forRoot(),
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     FormsModule,
