@@ -9,7 +9,7 @@ namespace DocHelper.Application.Common.Interfaces
     {
         DbSet<Domain.Entities.City> Cities { get; set; }
 
-        DbSet<Specialty> Specialties { get; set; }
+        DbSet<Domain.Entities.Specialty> Specialties { get; set; }
 
         int SaveChanges();
         
