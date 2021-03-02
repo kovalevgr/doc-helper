@@ -1,3 +1,4 @@
+import {AngularSvgIconModule} from "angular-svg-icon";
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -11,7 +12,8 @@ import {CurrentLocationPipe} from "../location/pipes/current-location.pipe";
 
 @NgModule({
     imports: [
-        CommonModule,
+      AngularSvgIconModule,
+      CommonModule,
         FormsModule,
         RouterModule.forChild([{path: '', component: HomeComponent}]),
     ],
