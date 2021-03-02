@@ -6,6 +6,7 @@ import {WebApiClient} from "../../web-api-client";
 import {Observable} from "rxjs";
 
 export const LOCATION_STORAGE_KEY = 'location';
+export const DEFAULT_CITY_NAME = 'kiev';
 
 @Injectable({
   providedIn: 'root',
@@ -20,12 +21,12 @@ export class LocationService {
   getCurrentLocation(): Observable<Location> {
     return this.locations$
       .pipe(
-        map(locations => locations.find(location => this.userLocation() == location.city))
+        map(locations => locations.find(location => LocationService.userLocation() == location.city))
       )
       .pipe(take(1))
   }
 
-  userLocation(): string {
+  static userLocation(): string {
     return localStorage.getItem(LOCATION_STORAGE_KEY);
   }
 

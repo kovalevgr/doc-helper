@@ -1,5 +1,6 @@
 ﻿using DocHelper.Application.Common.Interfaces;
 using DocHelper.Infrastructure.Persistence;
+using DocHelper.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,8 @@ namespace DocHelper.Infrastructure
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
+            services.AddSingleton<ILocationService, LocationService>();
             
             return services;
         }

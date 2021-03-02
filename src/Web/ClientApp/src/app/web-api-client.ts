@@ -2,6 +2,7 @@
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {Observable, of, throwError} from "rxjs";
 import {catchError, mergeMap} from "rxjs/operators";
+import {LocationService} from "./components/location/location.service";
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
@@ -25,7 +26,8 @@ export class WebApiClient {
       observe: "response",
       responseType: "blob",
       headers: new HttpHeaders({
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "Location": LocationService.userLocation(),
       })
     };
 

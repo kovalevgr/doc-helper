@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.0" />
+      <PackageReference Include="ValueObject" Version="0.6.1" />
     </ItemGroup>
 
     <ItemGroup>

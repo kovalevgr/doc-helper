@@ -1,5 +1,6 @@
 using DocHelper.Application;
 using DocHelper.Infrastructure;
+using DocHelper.Infrastructure.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -55,6 +56,8 @@ namespace DocHelper.Web
 
             app.UseRouting();
 
+            app.UseLocation();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

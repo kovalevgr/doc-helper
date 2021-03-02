@@ -7,7 +7,7 @@
 
             <li class='chooser__list__item' [class.visible]="specialty.active" *ngFor="let specialty of specialities$ | async; index as i">
               <p class="chooser__list__item-wrapper">
-                <a class="chooser__list__item-link" [text]="specialty.title" [routerLink]="['doctors', locationService.userLocation() , specialty.alias]"></a>
+                <a class="chooser__list__item-link" [text]="specialty.title" [routerLink]="['doctors', this.userLocation() , specialty.alias]"></a>
                 <span class="chooser__list__quantity">{{ specialty.count }}</span>
               </p>
             </li>
