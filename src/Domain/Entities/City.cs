@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocHelper.Domain.Entities
 {
-    [Index(nameof(Name), nameof(Alias), IsUnique = true)]
+    [Index(nameof(Name), nameof(Alias))]
     public class City
     {
         [Key]

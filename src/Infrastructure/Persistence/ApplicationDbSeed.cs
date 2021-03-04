@@ -47,10 +47,6 @@ namespace DocHelper.Infrastructure.Persistence
         private static IEnumerable<Type> GetSeedsList() => AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(s => s.GetTypes())
             .Where(p => typeof(IApplicationDbSeed).IsAssignableFrom(p))
-            .Where(p => p.IsClass)
-            // .Where(p => !p.IsAbstract)
-            // .ToList()
-            // .Sort()
-        ;
+            .Where(p => p.IsClass);
     }
 }
