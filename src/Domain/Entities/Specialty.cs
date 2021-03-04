@@ -14,5 +14,7 @@ namespace DocHelper.Domain.Entities
 
         [Required]
         public string Alias { get; set; }
+        
+        public City City { get; set; }
     }
 }

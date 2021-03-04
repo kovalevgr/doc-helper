@@ -17,6 +17,8 @@ namespace DocHelper.Infrastructure.Persistence.Seeds
 
         public async Task SeedAsync(IApplicationDbContext context)
         {
+            List<City> references = new List<City>();
+            
             var cities = new List<City>
             {
                 new City {Name = "Kiev", Alias = "kiev"},
@@ -27,7 +29,13 @@ namespace DocHelper.Infrastructure.Persistence.Seeds
             foreach (var city in cities)
             {
                 await context.Cities.AddAsync(city);
+                
+                references.Add(city);
             }
+            
+            ApplicationDbSeed.SetReferences(GetReferenceKeyName(), references);
         }
+
+        private string GetReferenceKeyName() => nameof(CitiesSeed);
     }
 }

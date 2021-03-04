@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocHelper.Domain.Entities
@@ -14,5 +15,7 @@ namespace DocHelper.Domain.Entities
         
         [Required]
         public string Alias { get; set; }
+
+        public ICollection<Specialty> Specialties { get; set; }
     }
 }

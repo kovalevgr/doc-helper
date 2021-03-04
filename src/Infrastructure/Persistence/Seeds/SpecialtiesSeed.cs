@@ -17,19 +17,24 @@ namespace DocHelper.Infrastructure.Persistence.Seeds
 
         public async Task SeedAsync(IApplicationDbContext context)
         {
-            var specialties = new List<Specialty>
-            {
-                new Specialty {Title = "Невролог", Alias = "nevrolog"},
-                new Specialty {Title = "Отоларинголог", Alias = "otolaringolog-lor"},
-                new Specialty {Title = "Психолог", Alias = "psiholog"},
-                new Specialty {Title = "Трихолог", Alias = "triholog"},
-                new Specialty {Title = "Косметолог", Alias = "kosmetolog"},
-                new Specialty {Title = "Ортодонт", Alias = "ortodont"}
-            };
+            var cities = ApplicationDbSeed.GetReferences<List<City>>(nameof(CitiesSeed));
 
-            foreach (var specialty in specialties)
+            foreach (City city in cities)
             {
-                await context.Specialties.AddAsync(specialty);
+                var specialties = new List<Specialty>
+                {
+                    new Specialty {Title = "Невролог", Alias = "nevrolog", City = city},
+                    new Specialty {Title = "Отоларинголог", Alias = "otolaringolog-lor", City = city},
+                    new Specialty {Title = "Психолог", Alias = "psiholog", City = city},
+                    new Specialty {Title = "Трихолог", Alias = "triholog", City = city},
+                    new Specialty {Title = "Косметолог", Alias = "kosmetolog", City = city},
+                    new Specialty {Title = "Ортодонт", Alias = "ortodont", City = city}
+                };
+
+                foreach (var specialty in specialties)
+                {
+                    await context.Specialties.AddAsync(specialty);
+                }
             }
         }
     }
