@@ -19,7 +19,6 @@ namespace DocHelper.Infrastructure.Persistence
             {
                 var seedInstance = (IApplicationDbSeed) Activator.CreateInstance(seed);
             
-                seedInstance?.Refresh(context);
                 seedInstance?.SeedAsync(context).GetAwaiter().GetResult();
             }
             
