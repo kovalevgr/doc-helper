@@ -4,11 +4,8 @@ using Microsoft.EntityFrameworkCore;
 namespace DocHelper.Domain.Entities
 {
     [Index(nameof(Alias), nameof(Title))]
-    public class Specialty
+    public class Specialty : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public string Title { get; set; }
 

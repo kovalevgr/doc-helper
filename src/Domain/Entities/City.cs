@@ -5,11 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace DocHelper.Domain.Entities
 {
     [Index(nameof(Name), nameof(Alias))]
-    public class City
+    public class City : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-        
         [Required]
         public string Name { get; set; }
         
