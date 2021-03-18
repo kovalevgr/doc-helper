@@ -9,9 +9,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="10.1.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.0" />
-      <PackageReference Include="ValueObject" Version="0.6.1" />
+        <PackageReference Include="Ardalis.Specification" Version="4.1.0" />
+        <PackageReference Include="AutoMapper" Version="10.1.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.0" />
+        <PackageReference Include="ValueObject" Version="0.6.1" />
     </ItemGroup>
 
 </Project>
