@@ -6,7 +6,7 @@ namespace DocHelper.Web.Controllers
 {
     public class CitiesController : ApiControllerBase
     {
-        public async Task<List<Domain.Entities.City>> Get()
+        public async Task<IReadOnlyList<Domain.Entities.City>> Get()
         {
             return await Mediator.Send(new ListCitiesCommand());
         }

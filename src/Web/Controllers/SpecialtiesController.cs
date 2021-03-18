@@ -7,7 +7,7 @@ namespace DocHelper.Web.Controllers
 {
     public class SpecialtiesController : ApiControllerBase
     {
-        public async Task<List<Specialty>> Get()
+        public async Task<IReadOnlyList<Specialty>> Get()
         {
             return await Mediator.Send(new ListSpecialtiesCommand());
         }

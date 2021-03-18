@@ -1,5 +1,7 @@
 ﻿using DocHelper.Application.Common.Interfaces;
+using DocHelper.Domain.Repository;
 using DocHelper.Infrastructure.Persistence;
+using DocHelper.Infrastructure.Repository;
 using DocHelper.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,10 @@ namespace DocHelper.Infrastructure
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             services.AddSingleton<ILocationService, LocationService>();
+            
+            // Repo section
+            services.AddTransient<ICityRepository, CityRepository>();
+            services.AddTransient<ISpecialtyRepository, SpecialtyRepository>();
             
             return services;
         }
