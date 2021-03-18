@@ -8,6 +8,12 @@ namespace DocHelper.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<City> builder)
         {
+            builder.Property(c => c.Name)
+                .IsRequired();
+
+            builder.Property(c => c.Alias)
+                .IsRequired();
+
             builder
                 .HasMany(c => c.Specialties)
                 .WithOne(s => s.City);
