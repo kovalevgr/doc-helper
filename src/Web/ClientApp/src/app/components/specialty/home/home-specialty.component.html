@@ -5,7 +5,7 @@
         <section>
           <ul class="chooser__list">
 
-            <li class='chooser__list__item' [class.visible]="specialty.active" *ngFor="let specialty of specialities$ | async; index as i">
+            <li class='chooser__list__item' [class.visible]="specialty.active" *ngFor="let specialty of specialities$ | async">
               <p class="chooser__list__item-wrapper">
                 <a class="chooser__list__item-link" [text]="specialty.title" [routerLink]="['doctors', this.userLocation() , specialty.alias]"></a>
                 <span class="chooser__list__quantity">{{ specialty.count }}</span>

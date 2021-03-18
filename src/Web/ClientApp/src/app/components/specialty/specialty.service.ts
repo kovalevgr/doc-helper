@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 
-import {SPECIALTY} from './mock-specialty';
 import {Observable, of} from "rxjs";
 import {Specialty} from "./specialty";
+import {WebApiClient} from "../../web-api-client";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +11,12 @@ import {Specialty} from "./specialty";
 export class SpecialtyService {
   private readonly _specialty;
 
-  constructor() {
-    this._specialty = getSelection();
-  }
+  constructor(private client: WebApiClient) {}
 
   public getSpecialty(): Observable<Specialty[]> {
-    return of(SPECIALTY);
+    return this.client.get("/api/Specialties")
+      .pipe(
+        map((data: [object]) => data.map((location) => Specialty.deserialize(location)))
+      );
   }
 }
