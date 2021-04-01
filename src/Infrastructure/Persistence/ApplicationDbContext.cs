@@ -19,18 +19,7 @@ namespace DocHelper.Infrastructure.Persistence
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            // TODO Implement this in the future
-            // foreach (Type entityType in GetEntityTypes())
-            // {
-            //     modelBuilder.Entity(entityType);
-            // }
-            
             base.OnModelCreating(modelBuilder);
         }
-
-        // private IEnumerable<Type> GetEntityTypes() => AppDomain.CurrentDomain.GetAssemblies()
-        //     .SelectMany(x => x.GetTypes())
-        //     .Where(x => typeof(IEntity).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-        // ;
     }
 }

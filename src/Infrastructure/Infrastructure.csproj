@@ -6,6 +6,7 @@
         <RootNamespace>DocHelper.Infrastructure</RootNamespace>
         <Company>DocHelper.Infrastructure</Company>
         <Product>DocHelper.Infrastructure</Product>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
