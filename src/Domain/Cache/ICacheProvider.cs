@@ -119,16 +119,6 @@ namespace DocHelper.Domain.Cache
         Task RemoveAllAsync(IEnumerable<string> cacheKeys);
 
         /// <summary>
-        /// Get the specified cacheKey, dataRetriever and expiration.
-        /// </summary>
-        /// <returns>The get.</returns>
-        /// <param name="cacheKey">Cache key.</param>
-        /// <param name="dataRetriever">Data retriever.</param>
-        /// <param name="expiration">Expiration.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        CacheValue<T> Get<T>(string cacheKey, Func<T> dataRetriever, TimeSpan expiration);
-
-        /// <summary>
         /// Gets the specified cacheKey, dataRetriever and expiration async.
         /// </summary>
         /// <returns>The async.</returns>
