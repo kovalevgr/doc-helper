@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DocHelper.Domain.Cache.Key
 {
@@ -13,6 +14,12 @@ namespace DocHelper.Domain.Cache.Key
         /// Hash of the input LINQ query's computed key.
         /// </summary>
         public string KeyHash { get; set; } = default!;
+        
+        /// <summary>
+        /// Determines which entities are used in this LINQ query.
+        /// This array will be used to invalidate the related cache of all related queries automatically.
+        /// </summary>
+        public ISet<string> CacheDependencies { get; set; }
 
         /// <summary>
         /// Equals
@@ -43,7 +50,7 @@ namespace DocHelper.Domain.Cache.Key
         /// </summary>
         public override string ToString()
         {
-            return $"KeyHash: {KeyHash}.";
+            return $"KeyHash: {KeyHash}, CacheDependencies: {string.Join(", ", CacheDependencies)}.";
         }
     }
 }

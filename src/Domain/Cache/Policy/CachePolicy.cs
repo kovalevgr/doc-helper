@@ -4,9 +4,11 @@ namespace DocHelper.Domain.Cache.Policy
 {
     public class CachePolicy
     {
-        private const char ItemsSeparator = '|';
+        public const char ItemsSeparator = '|';
 
-        private const string PartsSeparator = "-->";
+        public const string PartsSeparator = "-->";
+
+        public static readonly string Prefix = $"-- {nameof(CachePolicy)}";
 
         /// <summary>
         /// Defines the expiration mode of the cache item.

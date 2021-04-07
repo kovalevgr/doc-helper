@@ -22,9 +22,9 @@ namespace DocHelper.Infrastructure
             IConfiguration configuration)
         {
             // Configure cache
-            services.AddTransient<CacheInterceptor>();
-            services.AddTransient<ICacheProcessor, CacheProcessor>();
-            services.AddTransient<CachePolicyManager>();
+            services.AddScoped<CacheInterceptor>();
+            services.AddSingleton<ICacheProcessor, CacheProcessor>();
+            services.AddSingleton<CachePolicyManager>();
             
             services.Configure<CacheOptions>(_ => configuration.GetSection("Caching"));
             

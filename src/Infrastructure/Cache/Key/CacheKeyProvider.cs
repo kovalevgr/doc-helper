@@ -1,7 +1,9 @@
 ﻿#nullable enable
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using DocHelper.Domain.Cache.Key;
 using DocHelper.Domain.Cache.Policy;
@@ -30,15 +32,51 @@ namespace DocHelper.Infrastructure.Cache.Key
             {
                 throw new ArgumentNullException(nameof(cachePolicy));
             }
+            
+            byte[] buffer = Encoding.UTF8.GetBytes(command.CommandText);
+            var encodedString = Convert.ToBase64String(buffer);
+            
 
             var cacheKey = GetCacheKey(command, cachePolicy.CacheSaltKey);
-            var cacheKeyHash = $"{XxHashUnsafe.ComputeHash(cacheKey):X}";
+            var cacheKeyHash = $"{XxHashUnsafe.ComputeHash(encodedString):X}";
+            var cacheDependencies = GetCacheDependencies(command, context, cachePolicy);
 
             return new CacheKey
             {
                 Key = cacheKey,
-                KeyHash = cacheKeyHash
+                KeyHash = cacheKeyHash,
+                CacheDependencies = cacheDependencies
             };
+        }
+
+        private static SortedSet<string> GetCacheDependencies(
+            DbCommand command,
+            DbContext context,
+            CachePolicy cachePolicy)
+        {
+            if (command is null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
+            
+            if (cachePolicy is null)
+            {
+                throw new ArgumentNullException(nameof(cachePolicy));
+            }
+            
+            var tableNames = new SortedSet<string>(
+                TableUtilities.GetTableNamesByContext(context).Select(x => x.TableName),
+                StringComparer.OrdinalIgnoreCase);
+            var textsInsideSquareBrackets = TableUtilities.GetSqlCommandTableNames(command.CommandText);
+            var cacheDependencies = new SortedSet<string>(
+                tableNames.Intersect(textsInsideSquareBrackets, StringComparer.OrdinalIgnoreCase),
+                StringComparer.OrdinalIgnoreCase);
+            if (cacheDependencies.Any())
+            {
+                return cacheDependencies;
+            }
+
+            return new SortedSet<string>();
         }
 
         private static string GetCacheKey(DbCommand command, string saltKey)
@@ -64,7 +102,7 @@ namespace DocHelper.Infrastructure.Cache.Key
 
             return cacheKey.ToString().Trim();
         }
-        
+
         private static string GetParameterValue(DbParameter parameter)
         {
             switch (parameter.Value)
@@ -78,7 +116,7 @@ namespace DocHelper.Infrastructure.Cache.Key
                     return parameter.Value?.ToString() ?? string.Empty;
             }
         }
-        
+
         private static string BytesToHex(byte[] buffer)
         {
             var sb = new StringBuilder(buffer.Length * 2);
@@ -86,6 +124,7 @@ namespace DocHelper.Infrastructure.Cache.Key
             {
                 sb.Append(@byte.ToString("X2", CultureInfo.InvariantCulture));
             }
+
             return sb.ToString();
         }
     }

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using DocHelper.Application.Cache.Providers.Configuration;
 using DocHelper.Domain.Cache;
+using DocHelper.Domain.Cache.InMemory;
 using DocHelper.Domain.Checker;
 using Microsoft.Extensions.Options;
 
@@ -11,11 +11,14 @@ namespace DocHelper.Application.Cache.Providers.InMemory
 {
     public partial class InMemoryCacheProvider : ICacheProvider
     {
+        private readonly IInMemoryCaching _caching;
         private readonly CacheProviderOptions _options;
 
-        public InMemoryCacheProvider(IOptions<CacheProviderOptions> options)
+        public InMemoryCacheProvider(
+            IInMemoryCaching caching,
+            IOptions<CacheProviderOptions> options)
         {
-            _memory = new ConcurrentDictionary<string, CacheEntry>();
+            _caching = caching;
             _options = options.Value;
         }
 
@@ -34,7 +37,7 @@ namespace DocHelper.Application.Cache.Providers.InMemory
 
             var dateTimeOffset = DateTimeOffset.Now.Add(expiration);
 
-            SetInternal(new CacheEntry(cacheKey, cacheValue, dateTimeOffset));
+            _caching.Set(new CacheEntry(cacheKey, cacheValue, dateTimeOffset));
         }
 
         public bool TrySet<T>(string cacheKey, T cacheValue, TimeSpan expiration)
@@ -45,7 +48,7 @@ namespace DocHelper.Application.Cache.Providers.InMemory
 
             var dateTimeOffset = DateTimeOffset.Now.Add(expiration);
 
-            return SetInternal(new CacheEntry(cacheKey, cacheValue, dateTimeOffset), true);
+            return _caching.Set(new CacheEntry(cacheKey, cacheValue, dateTimeOffset), true);
         }
 
         public void SetAll<T>(IDictionary<string, T> values, TimeSpan expiration)
@@ -55,14 +58,14 @@ namespace DocHelper.Application.Cache.Providers.InMemory
 
             var dateTimeOffset = DateTimeOffset.Now.Add(expiration);
 
-            foreach (var entry in values) SetInternal(new CacheEntry(entry.Key, entry.Value, dateTimeOffset));
+            foreach (var entry in values) _caching.Set(new CacheEntry(entry.Key, entry.Value, dateTimeOffset));
         }
 
         public CacheValue<T> Get<T>(string cacheKey)
         {
             ArgumentCheck.NotNullOrWhiteSpace(cacheKey, nameof(cacheKey));
 
-            var result = BaseGet<T>(cacheKey);
+            var result = _caching.Get<T>(cacheKey);
             if (result.HasValue)
             {
                 return result;
@@ -75,7 +78,7 @@ namespace DocHelper.Application.Cache.Providers.InMemory
         {
             ArgumentCheck.NotNullOrWhiteSpace(cacheKey, nameof(cacheKey));
 
-            BaseRemove(cacheKey);
+            _caching.Remove(cacheKey);
         }
 
         public void RemoveAll(IEnumerable<string> cacheKeys)
@@ -83,21 +86,21 @@ namespace DocHelper.Application.Cache.Providers.InMemory
             var keys = cacheKeys.ToList();
             ArgumentCheck.NotNullAndCountGTZero(keys, nameof(cacheKeys));
 
-            foreach (var key in keys) BaseRemove(key);
+            foreach (var key in keys) _caching.Remove(key);
         }
 
         public void RemoveByPrefix(string prefix)
         {
-            var keys = _memory.Keys.Where(x => x.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)).ToList();
+            var keys = _caching.Keys(prefix);
 
-            foreach (var key in keys) BaseRemove(key);
+            foreach (var key in keys) _caching.Remove(key);
         }
 
         public bool Exists(string cacheKey)
         {
             ArgumentCheck.NotNullOrWhiteSpace(cacheKey, nameof(cacheKey));
 
-            return _memory.TryGetValue(cacheKey, out _);
+            return _caching.Exists(cacheKey);
         }
     }
 }

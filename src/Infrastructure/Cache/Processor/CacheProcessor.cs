@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Data.Common;
+using System.Globalization;
 using DocHelper.Domain.Cache;
+using DocHelper.Domain.Cache.Serializable;
 using DocHelper.Infrastructure.Cache.Key;
 using DocHelper.Infrastructure.Cache.Policy;
+using DocHelper.Infrastructure.Cache.Reader;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace DocHelper.Infrastructure.Cache.Processor
 {
@@ -24,6 +28,11 @@ namespace DocHelper.Infrastructure.Cache.Processor
             {
                 throw new ArgumentNullException(nameof(command));
             }
+            
+            if (result is DataReader)
+            {
+                return result;
+            }
 
             var commandText = command.CommandText;
             var cachePolicy = _cachePolicyManager.GetCachePolicy(commandText);
@@ -33,9 +42,20 @@ namespace DocHelper.Infrastructure.Cache.Processor
             }
 
             var cacheKey = CacheKeyProvider.GetKey(command, context, cachePolicy);
-            
-            // TODO Need implement data serializer
-            _cacheProvider.Set(cacheKey.ToString(), result, cachePolicy.CacheTimeout);
+
+            if (result is DbDataReader dataReader)
+            {
+                TableRows tableRows;
+                using (var dbReaderLoader = new DataReaderLoader(dataReader))
+                {
+                    tableRows = dbReaderLoader.LoadAndClose();
+                }
+
+                _cacheProvider.Set(cacheKey.ToString(), new CachedData {TableRows = tableRows},
+                    cachePolicy.CacheTimeout);
+
+                return (T) (object) new DataReader(tableRows);
+            }
 
             return result;
         }
@@ -54,12 +74,29 @@ namespace DocHelper.Infrastructure.Cache.Processor
             }
 
             var cacheKey = CacheKeyProvider.GetKey(command, context, cachePolicy);
-            
-            // TODO Need implement data serializer
+
             var cacheResult = _cacheProvider.Get<CachedData>(cacheKey.ToString());
             if (cacheResult.IsNull)
             {
                 return result;
+            }
+
+            if (result is InterceptionResult<DbDataReader>)
+            {
+                if (cacheResult.IsNull)
+                {
+                    using var rows = new DataReader(new TableRows());
+                    return (T) Convert.ChangeType(
+                        InterceptionResult<DbDataReader>.SuppressWithResult(rows),
+                        typeof(T),
+                        CultureInfo.InvariantCulture);
+                }
+
+                using var dataRows = new DataReader(cacheResult.Value.TableRows);
+                return (T) Convert.ChangeType(
+                    InterceptionResult<DbDataReader>.SuppressWithResult(dataRows),
+                    typeof(T),
+                    CultureInfo.InvariantCulture);
             }
 
             return result;

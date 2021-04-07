@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DocHelper.Domain.Cache;
+using DocHelper.Domain.Cache.InMemory;
 using DocHelper.Domain.Checker;
 
 namespace DocHelper.Application.Cache.Providers.InMemory
@@ -22,7 +23,7 @@ namespace DocHelper.Application.Cache.Providers.InMemory
 
             var dateTimeOffset = DateTimeOffset.Now.Add(expiration);
 
-            await Task.Run(() => { SetInternal(new CacheEntry(cacheKey, cacheValue, dateTimeOffset)); });
+            await Task.Run(() => { _caching.Set(new CacheEntry(cacheKey, cacheValue, dateTimeOffset)); });
         }
 
         public async Task<bool> TrySetAsync<T>(string cacheKey, T cacheValue, TimeSpan expiration)
@@ -33,7 +34,7 @@ namespace DocHelper.Application.Cache.Providers.InMemory
 
             var dateTimeOffset = DateTimeOffset.Now.Add(expiration);
 
-            return await Task.FromResult(SetInternal(new CacheEntry(cacheKey, cacheValue, dateTimeOffset)));
+            return await Task.FromResult(_caching.Set(new CacheEntry(cacheKey, cacheValue, dateTimeOffset)));
         }
 
         public Task SetAllAsync<T>(IDictionary<string, T> value, TimeSpan expiration)
