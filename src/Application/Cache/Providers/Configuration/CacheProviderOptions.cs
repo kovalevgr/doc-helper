@@ -1,6 +1,6 @@
 ﻿namespace DocHelper.Application.Cache.Providers.Configuration
 {
-    public class CacheProviderOptions
+    public class InMemoryOptions
     {
         /// <summary>
         /// Gets or sets the max random second.
@@ -41,6 +41,6 @@
         /// <summary>
         /// Get or sets whether null values should be cached, default is false.
         /// </summary>
-        public bool CacheNulls { get; set; } = false;
+        public bool CacheNulls { get; set; }
     }
 }

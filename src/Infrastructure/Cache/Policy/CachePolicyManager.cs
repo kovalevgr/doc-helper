@@ -27,6 +27,11 @@ namespace DocHelper.Infrastructure.Cache.Policy
                 throw new ArgumentNullException(nameof(commandText));
             }
 
+            if (!_options.UseCache)
+            {
+                return null;
+            }
+
             if (FunctionsUtilities.ContainsNonDeterministicFunction(commandText))
             {
                 return null;

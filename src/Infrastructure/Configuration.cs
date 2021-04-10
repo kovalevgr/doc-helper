@@ -21,19 +21,21 @@ namespace DocHelper.Infrastructure
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            // Configure cache
+            // Cache section
+            configuration.GetSection(nameof(CacheOptions)).Bind(new CacheOptions());
+            services.Configure<CacheOptions>(configuration.GetSection(nameof(CacheOptions)));
+            
             services.AddScoped<CacheInterceptor>();
             services.AddSingleton<ICacheProcessor, CacheProcessor>();
             services.AddSingleton<CachePolicyManager>();
-            
-            services.Configure<CacheOptions>(_ => configuration.GetSection("Caching"));
-            
+
+            // DB section
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
+                        configuration.GetConnectionString("DefaultConnection"),
+                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
                     .AddInterceptors(GetInterceptors(services))
-                );
+            );
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
@@ -49,11 +51,11 @@ namespace DocHelper.Infrastructure
         private static IEnumerable<IInterceptor> GetInterceptors(IServiceCollection services)
         {
             var serviceProvider = services.BuildServiceProvider();
-            
+
             IList<IInterceptor> interceptors = new List<IInterceptor>();
-            
+
             interceptors.Add(serviceProvider.GetService<CacheInterceptor>());
-            
+
             return interceptors;
         }
     }

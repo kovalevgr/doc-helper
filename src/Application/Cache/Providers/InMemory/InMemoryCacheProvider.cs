@@ -12,11 +12,11 @@ namespace DocHelper.Application.Cache.Providers.InMemory
     public partial class InMemoryCacheProvider : ICacheProvider
     {
         private readonly IInMemoryCaching _caching;
-        private readonly CacheProviderOptions _options;
+        private readonly InMemoryOptions _options;
 
         public InMemoryCacheProvider(
             IInMemoryCaching caching,
-            IOptions<CacheProviderOptions> options)
+            IOptions<InMemoryOptions> options)
         {
             _caching = caching;
             _options = options.Value;

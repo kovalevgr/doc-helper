@@ -5,6 +5,7 @@ namespace DocHelper.Infrastructure.Cache.Configuration
 {
     public class CacheOptions
     {
-        public TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(30);
+        public bool UseCache { get; set; }
+        public TimeSpan Timeout { get; set; }
     }
 }

@@ -3,6 +3,8 @@ import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
 import {startWith, tap} from "rxjs/operators";
 
+import {environment} from '../../environments/environment';
+
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
   private cache: Map<string, HttpResponse<any>> = new Map();
@@ -18,7 +20,7 @@ export class CachingInterceptor implements HttpInterceptor {
     if (req.headers.get('x-refresh')) {
       const results$ = this.sendRequest(req, next, this.cache);
       return cachedResponse ?
-        results$.pipe( startWith(cachedResponse) ) :
+        results$.pipe(startWith(cachedResponse)) :
         results$;
     }
 
@@ -27,7 +29,7 @@ export class CachingInterceptor implements HttpInterceptor {
       of(cachedResponse) : this.sendRequest(req, next, this.cache);
   }
 
-  private isCacheable = (req: HttpRequest<any>): boolean => req.method === "GET";
+  private isCacheable = (req: HttpRequest<any>): boolean => environment.use_cache && req.method === "GET";
 
   private getCacheKey = (req: HttpRequest<any>): string => `key=${req.url}&location=${req.headers.get("location")}`;
 

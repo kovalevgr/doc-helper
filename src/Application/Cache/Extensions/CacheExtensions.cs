@@ -13,19 +13,14 @@ namespace DocHelper.Application.Cache.Extensions
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            OptionsConfiguration(services, configuration);
+            var options = new InMemoryOptions();
+            configuration.GetSection("CacheOptions:InMemoryOptions").Bind(options);
+            services.Configure<InMemoryOptions>(configuration.GetSection("CacheOptions:InMemoryOptions"));
 
             services.AddSingleton<IInMemoryCaching, InMemoryCaching>();
             services.AddSingleton<ICacheProvider, InMemoryCacheProvider>();
 
             return services;
-        }
-
-        private static void OptionsConfiguration(
-            IServiceCollection services,
-            IConfiguration configuration)
-        {
-            services.Configure<CacheProviderOptions>(_ => configuration.GetSection("Caching"));
         }
     }
 }
