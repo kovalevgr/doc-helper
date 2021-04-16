@@ -1,5 +1,6 @@
 ﻿using System;
 using DocHelper.Domain.Cache.Serializable;
+using JetBrains.Annotations;
 
 namespace DocHelper.Domain.Cache
 {
@@ -9,7 +10,7 @@ namespace DocHelper.Domain.Cache
         /// <summary>
         /// DbDataReader's result.
         /// </summary>
-        public TableRows? TableRows { get; set; }
+        [CanBeNull] public TableRows TableRows { get; set; }
 
         /// <summary>
         /// DbDataReader's NonQuery result.
@@ -19,7 +20,7 @@ namespace DocHelper.Domain.Cache
         /// <summary>
         /// DbDataReader's Scalar result.
         /// </summary>
-        public object? Scalar { get; set; }
+        [CanBeNull] public object Scalar { get; set; }
 
         /// <summary>
         /// Is result of the query null?

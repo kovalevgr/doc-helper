@@ -39,6 +39,104 @@ namespace DocHelper.Infrastructure.Persistence.Migrations
                     b.ToTable("Cities");
                 });
 
+            modelBuilder.Entity("DocHelper.Domain.Entities.DoctorAggregate.Doctor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("MiddleName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Photo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Titles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WorkExperience")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("DocHelper.Domain.Entities.DoctorAggregate.Information", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("Informations");
+                });
+
+            modelBuilder.Entity("DocHelper.Domain.Entities.DoctorAggregate.Stats", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("CountComments")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountDisLikes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountLikes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId")
+                        .IsUnique();
+
+                    b.ToTable("Stats");
+                });
+
             modelBuilder.Entity("DocHelper.Domain.Entities.Specialty", b =>
                 {
                     b.Property<int>("Id")
@@ -64,6 +162,28 @@ namespace DocHelper.Infrastructure.Persistence.Migrations
                     b.ToTable("Specialties");
                 });
 
+            modelBuilder.Entity("DocHelper.Domain.Entities.DoctorAggregate.Information", b =>
+                {
+                    b.HasOne("DocHelper.Domain.Entities.DoctorAggregate.Doctor", "Doctor")
+                        .WithMany("DoctorInformations")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("DocHelper.Domain.Entities.DoctorAggregate.Stats", b =>
+                {
+                    b.HasOne("DocHelper.Domain.Entities.DoctorAggregate.Doctor", "Doctor")
+                        .WithOne("Stats")
+                        .HasForeignKey("DocHelper.Domain.Entities.DoctorAggregate.Stats", "DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
             modelBuilder.Entity("DocHelper.Domain.Entities.Specialty", b =>
                 {
                     b.HasOne("DocHelper.Domain.Entities.City", "City")
@@ -76,6 +196,13 @@ namespace DocHelper.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("DocHelper.Domain.Entities.City", b =>
                 {
                     b.Navigation("Specialties");
+                });
+
+            modelBuilder.Entity("DocHelper.Domain.Entities.DoctorAggregate.Doctor", b =>
+                {
+                    b.Navigation("DoctorInformations");
+
+                    b.Navigation("Stats");
                 });
 #pragma warning restore 612, 618
         }
