@@ -38,6 +38,12 @@ namespace DocHelper.Infrastructure.Repository
             return await specificationResult.ToListAsync(cancellationToken);
         }
 
+        public async Task<IReadOnlyList<TS>> ListAsync<TS>(IQueryable<TS> spec,
+            CancellationToken cancellationToken = default)
+        {
+            return await spec.ToListAsync(cancellationToken);
+        }
+
         public async Task<int> CountAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
         {
             var specificationResult = ApplySpecification(spec);

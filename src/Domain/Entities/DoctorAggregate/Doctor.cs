@@ -16,7 +16,7 @@ namespace DocHelper.Domain.Entities.DoctorAggregate
 
         public Stats Stats { get; private set; }
 
-        public ICollection<Information> DoctorInformations { get; private set; }
+        public ICollection<Information> Informations { get; private set; }
 
         private Doctor()
         {
@@ -45,14 +45,14 @@ namespace DocHelper.Domain.Entities.DoctorAggregate
             Description = description;
             Photo = photo;
             Stats = stats;
-            DoctorInformations = informations;
+            Informations = informations;
         }
 
         public void AddInformation(Information information)
         {
-            if (DoctorInformations.All(i => i.Id != information.Id))
+            if (Informations.All(i => i.Id != information.Id))
             {
-                DoctorInformations.Add(information);
+                Informations.Add(information);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using DocHelper.Application.Cache.Extensions;
+using DocHelper.Application.Common.Specifications;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,8 @@ namespace DocHelper.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.UseInMemoryCache(configuration);
+            
+            services.AddTransient<SpecBuilderFactory>();
 
             return services;
         }

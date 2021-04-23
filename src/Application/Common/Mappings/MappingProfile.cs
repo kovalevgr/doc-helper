@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using AutoMapper;
-using DocHelper.Domain.Common.Mappings;
+using DocHelper.Domain.Dto;
 
 namespace DocHelper.Application.Common.Mappings
 {
@@ -15,19 +14,16 @@ namespace DocHelper.Application.Common.Mappings
 
         private void ApplyMappingsFromAssembly(Assembly assembly)
         {
-            var types = assembly.GetExportedTypes()
-                .Where(t => t.GetInterfaces().Any(i => 
-                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>)))
-                .ToList();
+            var types = new[] {typeof(DoctorListDto), typeof(SpecialtyDto), typeof(StatsDto), typeof(InformationDto)};
 
             foreach (var type in types)
             {
                 var instance = Activator.CreateInstance(type);
 
-                var methodInfo = type.GetMethod("Mapping") 
+                var methodInfo = type.GetMethod("Mapping")
                                  ?? type.GetInterface("IMapFrom`1")?.GetMethod("Mapping");
-                
-                methodInfo?.Invoke(instance, new object[] { this });
+
+                methodInfo?.Invoke(instance, new object[] {this});
             }
         }
     }

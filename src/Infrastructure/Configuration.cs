@@ -44,6 +44,7 @@ namespace DocHelper.Infrastructure
             // Repo section
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<ISpecialtyRepository, SpecialtyRepository>();
+            services.AddTransient<IDoctorRepository, DoctorRepository>();
 
             return services;
         }
