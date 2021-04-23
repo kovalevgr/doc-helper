@@ -29,7 +29,6 @@ namespace DocHelper.Infrastructure.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(doctor => doctor.Description)
-                .HasColumnType("text")
                 .IsRequired();
 
             builder.Property(doctor => doctor.Photo)
@@ -41,7 +40,7 @@ namespace DocHelper.Infrastructure.Persistence.Configurations
                 .HasForeignKey<Stats>(s => s.DoctorId);
 
             builder
-                .HasMany(c => c.DoctorInformations)
+                .HasMany(c => c.Informations)
                 .WithOne(i => i.Doctor)
                 .HasForeignKey(i => i.DoctorId);
         }
