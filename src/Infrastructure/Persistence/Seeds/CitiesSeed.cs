@@ -9,6 +9,8 @@ namespace DocHelper.Infrastructure.Persistence.Seeds
 {
     public class CitiesSeed : IApplicationDbSeed
     {
+        public int Priority { get; } = 1;
+
         public void Refresh(IApplicationDbContext context)
         {
             context.Cities.ToList().ForEach(e => context.Cities.Remove(e));

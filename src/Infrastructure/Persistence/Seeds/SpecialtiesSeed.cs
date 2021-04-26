@@ -9,6 +9,8 @@ namespace DocHelper.Infrastructure.Persistence.Seeds
 {
     public class SpecialtiesSeed : IApplicationDbSeed
     {
+        public int Priority { get; } = 2;
+
         public void Refresh(IApplicationDbContext context)
         {
             context.Specialties.ToList().ForEach(e => context.Specialties.Remove(e));
@@ -20,6 +22,8 @@ namespace DocHelper.Infrastructure.Persistence.Seeds
         {
             if (!await context.Specialties.AnyAsync())
             {
+                List<Specialty> references = new List<Specialty>();
+
                 var cities = ApplicationDbSeed.GetReferences<List<City>>(nameof(CitiesSeed));
 
                 foreach (City city in cities)
@@ -37,11 +41,17 @@ namespace DocHelper.Infrastructure.Persistence.Seeds
                     foreach (var specialty in specialties)
                     {
                         await context.Specialties.AddAsync(specialty);
+                        
+                        references.Add(specialty);
                     }
                 }
                 
                 await context.SaveChangesAsync();
+                
+                ApplicationDbSeed.SetReferences(GetReferenceKeyName(), references);
             }
         }
+        
+        public static string GetReferenceKeyName() => nameof(SpecialtiesSeed);
     }
 }

@@ -10,6 +10,8 @@ namespace DocHelper.Infrastructure.Persistence.Seeds.Doctors
 {
     public class InformationsSeed : IApplicationDbSeed
     {
+        public int Priority { get; } = 4;
+
         public void Refresh(IApplicationDbContext context)
         {
             context.Informations.ToList().ForEach(e => context.Informations.Remove(e));
