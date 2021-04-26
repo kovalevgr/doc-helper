@@ -9,8 +9,6 @@ import {map} from "rxjs/operators";
   providedIn: 'root',
 })
 export class SpecialtyService {
-  private readonly _specialty;
-
   constructor(private client: WebApiClient) {}
 
   public getSpecialty(): Observable<Specialty[]> {
