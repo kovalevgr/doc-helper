@@ -12,6 +12,7 @@ namespace DocHelper.Application.Common.Interfaces
         DbSet<Domain.Entities.DoctorAggregate.Doctor> Doctors { get; set; }
         DbSet<Information> Informations { get; set; }
         DbSet<Stats> Stats { get; set; }
+        DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
 
         int SaveChanges();
         

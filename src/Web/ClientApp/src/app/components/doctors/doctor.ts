@@ -1,5 +1,6 @@
 ﻿import {IStats, Stats} from "./stats";
 import {IInformation, Information} from "./information";
+import {ISpecialty, Specialty} from "../specialty/specialty";
 
 export interface IDoctor {
   firstName: string;
@@ -12,9 +13,11 @@ export interface IDoctor {
 
   stats: IStats | undefined;
   informations: IInformation[] | [];
+  specialties: ISpecialty[] | [];
 }
 
 export class Doctor implements IDoctor {
+  id: number;
   description: string;
   firstName: string;
   informations: IInformation[] | [];
@@ -22,12 +25,14 @@ export class Doctor implements IDoctor {
   middleName: string;
   photo: string;
   stats: IStats | undefined;
+  specialties: ISpecialty[] | [];
   titles: string;
   workExperience: number;
 
   static deserialize(data: any): Doctor {
     const doctor = new Doctor()
 
+    doctor.id = data.id;
     doctor.firstName = data.firstName;
     doctor.lastName = data.lastName;
     doctor.middleName = data.middleName;
@@ -42,6 +47,10 @@ export class Doctor implements IDoctor {
 
     if (data.hasOwnProperty('informations') && Array.isArray(data.informations)) {
       doctor.informations = data.informations.map(i => Information.deserialize(i));
+    }
+
+    if (data.hasOwnProperty('specialties') && Array.isArray(data.specialties)) {
+      doctor.specialties = data.specialties.map(i => Specialty.deserialize(i.specialty));
     }
 
     return doctor;

@@ -18,6 +18,8 @@ namespace DocHelper.Domain.Entities.DoctorAggregate
 
         public ICollection<Information> Informations { get; private set; }
 
+        public ICollection<DoctorSpecialty> Specialties { get; private set; }
+
         private Doctor()
         {
         }
@@ -35,7 +37,8 @@ namespace DocHelper.Domain.Entities.DoctorAggregate
         }
 
         public Doctor(string firstName, string lastName, string middleName, string titles, int workExperience,
-            string description, string photo, Stats stats, List<Information> informations)
+            string description, string photo, Stats stats, List<Information> informations,
+            List<DoctorSpecialty> specialties)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -46,6 +49,7 @@ namespace DocHelper.Domain.Entities.DoctorAggregate
             Photo = photo;
             Stats = stats;
             Informations = informations;
+            Specialties = specialties;
         }
 
         public void AddInformation(Information information)

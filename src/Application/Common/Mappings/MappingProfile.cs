@@ -14,7 +14,11 @@ namespace DocHelper.Application.Common.Mappings
 
         private void ApplyMappingsFromAssembly(Assembly assembly)
         {
-            var types = new[] {typeof(DoctorListDto), typeof(SpecialtyDto), typeof(StatsDto), typeof(InformationDto)};
+            var types = new[]
+            {
+                typeof(DoctorListDto), typeof(SpecialtyDto), typeof(StatsDto), typeof(InformationDto),
+                typeof(DoctorSpecialtyDto)
+            };
 
             foreach (var type in types)
             {

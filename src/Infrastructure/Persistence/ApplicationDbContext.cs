@@ -17,6 +17,7 @@ namespace DocHelper.Infrastructure.Persistence
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Information> Informations { get; set; }
         public DbSet<Stats> Stats { get; set; }
+        public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

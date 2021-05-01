@@ -6,6 +6,7 @@ namespace DocHelper.Domain.Dto
 {
     public class DoctorListDto : IMapFrom<Doctor>
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
@@ -15,5 +16,6 @@ namespace DocHelper.Domain.Dto
         public string Photo { get; set; }
         public StatsDto Stats { get; set; }
         public IList<InformationDto> Informations { get; set; }
+        public IList<DoctorSpecialtyDto> Specialties { get; set; }
     }
 }
