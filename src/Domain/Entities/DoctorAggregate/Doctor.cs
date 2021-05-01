@@ -6,6 +6,7 @@ namespace DocHelper.Domain.Entities.DoctorAggregate
 {
     public class Doctor : BaseEntity, IAggregateRoot
     {
+        public string Alias { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string MiddleName { get; private set; }
@@ -24,9 +25,10 @@ namespace DocHelper.Domain.Entities.DoctorAggregate
         {
         }
 
-        public Doctor(string firstName, string lastName, string middleName, string titles, int workExperience,
+        public Doctor(string alias, string firstName, string lastName, string middleName, string titles, int workExperience,
             string description, string photo)
         {
+            Alias = alias;
             FirstName = firstName;
             LastName = lastName;
             MiddleName = middleName;

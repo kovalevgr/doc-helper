@@ -322,7 +322,10 @@
                         <div class="item">
                           <div class="card__left-side">
                             <div class="card__image">
-                              <a class="card__image__link" href="https://doc.ua/doctor/kiev/tatyana-grechka">
+                              <a
+                                class="card__image__link"
+                                [routerLink]="[doctor.alias]"
+                              >
                                 <img
                                   src="https://static.doc.ua/uploads/5/6/9/0/_/5690/123x162/resize_bg_ratioy_width_insert_watermark/grechka.jpg"
                                   [alt]="doctor.fullName()"
@@ -348,13 +351,16 @@
                             </div>
                             <div class="card__title">
                               <div class="h3">
-                                <a [title]="doctor.fullName()" class="card__title__link fn"
-                                   href="https://doc.ua/doctor/kiev/tatyana-grechka">{{ doctor.fullName() }}</a></div>
+                                <a
+                                  [title]="doctor.fullName()"
+                                  class="card__title__link fn"
+                                  [routerLink]="[doctor.alias]"
+                                >{{ doctor.fullName() }}</a></div>
                             </div>
                             <div class="card__label title">
                               <strong *ngFor="let specialty of doctor.specialties">
                                 <a style="font-weight: 700;font-size: 13px;color: #333536;"
-                                   [routerLink]="[this.userLocation() | lowercase, 'all', specialty.alias]"
+                                   [routerLinkActive]="[this.userLocation() | lowercase, 'all', specialty.alias]"
                                    >{{ specialty.title }}</a>,
                               </strong>
                               <p>{{ doctor.titles }}</p>
@@ -364,7 +370,9 @@
                                 <span class="icon-star-a"></span>
                                 4.9
                               </div>
-                              <a href="https://doc.ua/doctor/kiev/tatyana-grechka/review" title="558 отзывов"
+                              <a
+                                [routerLink]="[doctor.alias, 'review']"
+                                title="558 отзывов"
                                  class="card__label__mob-informer_reviews">558 отзывов</a>
                               <span>16 лет опыта</span>
                             </div>
@@ -379,7 +387,8 @@
                             <div class="card__description">
                               <p class="card__description__text no-points">
                                 {{ doctor.description }}
-                                <a href="https://doc.ua/doctors/kiev/all#"
+                                <a
+                                  [routerLink]="['all']"
                                    class="card__description__link card__description__link_js"
                                    style="display: none;">еще</a>
                               </p>

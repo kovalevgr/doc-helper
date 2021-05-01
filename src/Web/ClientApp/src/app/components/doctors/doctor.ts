@@ -3,6 +3,7 @@ import {IInformation, Information} from "./information";
 import {ISpecialty, Specialty} from "../specialty/specialty";
 
 export interface IDoctor {
+  alias: string;
   firstName: string;
   lastName: string;
   middleName: string;
@@ -18,6 +19,7 @@ export interface IDoctor {
 
 export class Doctor implements IDoctor {
   id: number;
+  alias: string;
   description: string;
   firstName: string;
   informations: IInformation[] | [];
@@ -33,6 +35,7 @@ export class Doctor implements IDoctor {
     const doctor = new Doctor()
 
     doctor.id = data.id;
+    doctor.alias = data.alias;
     doctor.firstName = data.firstName;
     doctor.lastName = data.lastName;
     doctor.middleName = data.middleName;
