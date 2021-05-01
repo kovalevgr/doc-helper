@@ -10,18 +10,15 @@ namespace DocHelper.Infrastructure.Persistence
     public static class ApplicationDbSeed
     {
         private static Dictionary<string, object> _references = new Dictionary<string, object>();
-        
+
         public static async Task SeedDataAsync(ApplicationDbContext context)
         {
             var seeds = GetSeedsList();
-
-            foreach (Type seed in seeds)
+            foreach (var seedInstance in seeds)
             {
-                var seedInstance = (IApplicationDbSeed) Activator.CreateInstance(seed);
-            
                 seedInstance?.SeedAsync(context).GetAwaiter().GetResult();
             }
-            
+
             await context.SaveChangesAsync();
         }
 
@@ -32,9 +29,9 @@ namespace DocHelper.Infrastructure.Persistence
                 throw new SeedReferencesException($"Seed reference {key} - not exist!");
             }
 
-            return (T)reference;
+            return (T) reference;
         }
-        
+
         public static void SetReferences<T>(string key, T value)
         {
             if (!_references.TryAdd(key, value))
@@ -43,9 +40,11 @@ namespace DocHelper.Infrastructure.Persistence
             }
         }
 
-        private static IEnumerable<Type> GetSeedsList() => AppDomain.CurrentDomain.GetAssemblies()
+        private static IEnumerable<IApplicationDbSeed> GetSeedsList() => AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(s => s.GetTypes())
             .Where(p => typeof(IApplicationDbSeed).IsAssignableFrom(p))
-            .Where(p => p.IsClass);
+            .Where(p => p.IsClass)
+            .Select(s => (IApplicationDbSeed) Activator.CreateInstance(s))
+            .OrderBy(s => s?.Priority);
     }
 }
