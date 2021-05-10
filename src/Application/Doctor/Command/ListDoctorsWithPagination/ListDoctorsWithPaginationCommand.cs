@@ -3,11 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using DocHelper.Application.Common.Interfaces;
 using DocHelper.Application.Common.Mappings;
 using DocHelper.Application.Common.Specifications;
 using DocHelper.Domain.Dto;
 using DocHelper.Domain.Repository;
-using DocHelper.Domain.Specification.Doctor;
+using DocHelper.Domain.Specification.Doctors;
 using MediatR;
 
 namespace DocHelper.Application.Doctor.Command.ListDoctorsWithPagination
@@ -24,15 +25,18 @@ namespace DocHelper.Application.Doctor.Command.ListDoctorsWithPagination
     {
         private readonly IDoctorRepository _doctorRepository;
         private readonly IMapper _mapper;
+        private readonly ILocationService _locationService;
         private readonly SpecBuilder<Domain.Entities.DoctorAggregate.Doctor> _builder;
 
         public ListDoctorsWithPaginationCommandHandler(
             IDoctorRepository doctorRepository,
             IMapper mapper,
-            SpecBuilderFactory builder)
+            SpecBuilderFactory builder,
+            ILocationService locationService)
         {
             _doctorRepository = doctorRepository;
             _mapper = mapper;
+            _locationService = locationService;
             _builder = builder.Create<Domain.Entities.DoctorAggregate.Doctor>();
         }
 
@@ -41,8 +45,11 @@ namespace DocHelper.Application.Doctor.Command.ListDoctorsWithPagination
             ListDoctorsWithPaginationCommand request,
             CancellationToken cancellationToken)
         {
-            var queryable = _builder
-                .AddSpecification(new DoctorListSpecification())
+            var specifications = _builder
+                .AddSpecification(new DoctorLocationSpecification(_locationService.Location))
+                .AddSpecification(new DoctorListSpecification());
+            
+            var queryable = specifications
                 .Queryable
                 .ProjectTo<DoctorListDto>(_mapper.ConfigurationProvider)
                 .Paginate(request.PageNumber, request.PageSize);
