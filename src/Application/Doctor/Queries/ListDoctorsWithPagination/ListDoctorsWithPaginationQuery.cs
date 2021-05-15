@@ -11,16 +11,19 @@ using DocHelper.Domain.Repository;
 using DocHelper.Domain.Specification.Doctors;
 using MediatR;
 
-namespace DocHelper.Application.Doctor.Command.ListDoctorsWithPagination
+namespace DocHelper.Application.Doctor.Queries.ListDoctorsWithPagination
 {
-    public class ListDoctorsWithPaginationCommand : IRequest<IEnumerable<DoctorListDto>>
+    public class ListDoctorsWithPaginationQuery : IRequest<IEnumerable<DoctorListDto>>
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 30;
+
+        public string DistrictAlias { get; set; } = default;
+        public string SpecialtyAlias { get; set; } = default;
     }
 
     public class
-        ListDoctorsWithPaginationCommandHandler : IRequestHandler<ListDoctorsWithPaginationCommand,
+        ListDoctorsWithPaginationQueryHandler : IRequestHandler<ListDoctorsWithPaginationQuery,
             IEnumerable<DoctorListDto>>
     {
         private readonly IDoctorRepository _doctorRepository;
@@ -28,7 +31,7 @@ namespace DocHelper.Application.Doctor.Command.ListDoctorsWithPagination
         private readonly ILocationService _locationService;
         private readonly SpecBuilder<Domain.Entities.DoctorAggregate.Doctor> _builder;
 
-        public ListDoctorsWithPaginationCommandHandler(
+        public ListDoctorsWithPaginationQueryHandler(
             IDoctorRepository doctorRepository,
             IMapper mapper,
             SpecBuilderFactory builder,
@@ -42,18 +45,18 @@ namespace DocHelper.Application.Doctor.Command.ListDoctorsWithPagination
 
 
         public async Task<IEnumerable<DoctorListDto>> Handle(
-            ListDoctorsWithPaginationCommand request,
+            ListDoctorsWithPaginationQuery request,
             CancellationToken cancellationToken)
         {
             var specifications = _builder
                 .AddSpecification(new DoctorLocationSpecification(_locationService.Location))
-                .AddSpecification(new DoctorListSpecification());
-            
+                .AddSpecification(new DoctorListSpecification(request.DistrictAlias, request.SpecialtyAlias));
+
             var queryable = specifications
                 .Queryable
                 .ProjectTo<DoctorListDto>(_mapper.ConfigurationProvider)
                 .Paginate(request.PageNumber, request.PageSize);
-            
+
             return await _doctorRepository.ListAsync(queryable, cancellationToken);
         }
     }

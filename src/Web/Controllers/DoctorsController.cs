@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DocHelper.Application.Doctor.Command.ListDoctorsWithPagination;
+using DocHelper.Application.Doctor.Queries.ListDoctorsWithPagination;
 using DocHelper.Domain.Dto;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DocHelper.Web.Controllers
 {
     public class DoctorsController : ApiControllerBase
     {
-        public async Task<IEnumerable<DoctorListDto>> Get()
+        [HttpGet]
+        public async Task<IEnumerable<DoctorListDto>> Get([FromQuery] ListDoctorsWithPaginationQuery query)
         {
-            return await Mediator.Send(new ListDoctorsWithPaginationCommand());
+            return await Mediator.Send(query);
         }
     }
 }

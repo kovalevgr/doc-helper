@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DocHelper.Application.Specialty.Command.ListSpecialties;
-using DocHelper.Domain.Entities;
+using DocHelper.Application.Specialty.Queries.ListSpecialtiesWithPagination;
+using DocHelper.Domain.Dto;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DocHelper.Web.Controllers
 {
     public class SpecialtiesController : ApiControllerBase
     {
-        public async Task<IReadOnlyList<Specialty>> Get()
+        public async Task<IEnumerable<SpecialtyDto>> Get([FromQuery] ListSpecialtiesWithPaginationQuery query)
         {
-            return await Mediator.Send(new ListSpecialtiesCommand());
+            return await Mediator.Send(query);
         }
     }
 }
