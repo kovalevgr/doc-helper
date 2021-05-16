@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using DocHelper.Application.Common.Mappings;
-using DocHelper.Application.Common.Models;
 using DocHelper.Application.Common.Specifications;
 using DocHelper.Domain.Dto;
 using DocHelper.Domain.Repository;
+using DocHelper.Domain.Specification.Specialty;
 using MediatR;
 
 namespace DocHelper.Application.Specialty.Queries.ListSpecialtiesWithPagination
@@ -40,6 +40,7 @@ namespace DocHelper.Application.Specialty.Queries.ListSpecialtiesWithPagination
             CancellationToken cancellationToken)
         {
             var queryable =  _builder
+                .AddSpecification(new CommonSpecification())
                 .Queryable
                 .ProjectTo<SpecialtyDto>(_mapper.ConfigurationProvider)
                 .Paginate(request.PageNumber, request.PageSize);
