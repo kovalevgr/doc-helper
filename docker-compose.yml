@@ -13,8 +13,20 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
     ports:
-      - "5000:5000"
-      - "5001:5001"
+      - 4080:80
+      - 4443:443
+    depends_on:
+      - db
+    restart: on-failure
+
+  cabinet:
+    image: ${DOCKER_REGISTRY-}cabinet-app
+    build:
+      context: .
+      dockerfile: src/CabinetApp/Dockerfile
+    ports:
+      - 5080:80
+      - 5443:443
     depends_on:
       - db
     restart: on-failure

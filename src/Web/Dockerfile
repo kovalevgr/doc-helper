@@ -1,8 +1,8 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
-ENV ASPNETCORE_URLS=https://+:5001;http://+:5000
+ENV ASPNETCORE_URLS=https://+:443;http://+:80
 WORKDIR /app
-EXPOSE 5000
-EXPOSE 5001
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -

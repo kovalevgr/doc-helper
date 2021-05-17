@@ -16,6 +16,11 @@ This layer contains classes for accessing external resources such as file system
 
 This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
 
+
+### CabinetApp
+
+This application based on Blazor App. On this app doctor, client can customize it's profile.
+
 ## Database Migrations
 
 ### Add new migration
