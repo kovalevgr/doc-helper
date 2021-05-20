@@ -2,11 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <RazorLangVersion>3.0</RazorLangVersion>
-        <AssemblyName>DocHelper.CabinetApp</AssemblyName>
-        <RootNamespace>DocHelper.CabinetApp</RootNamespace>
-        <Company>DocHelper.CabinetApp</Company>
-        <Product>DocHelper.CabinetApp</Product>
     </PropertyGroup>
 
     <ItemGroup>
