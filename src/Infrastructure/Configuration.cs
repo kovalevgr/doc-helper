@@ -24,7 +24,7 @@ namespace DocHelper.Infrastructure
             // Cache section
             configuration.GetSection(nameof(CacheOptions)).Bind(new CacheOptions());
             services.Configure<CacheOptions>(configuration.GetSection(nameof(CacheOptions)));
-            
+
             services.AddScoped<CacheInterceptor>();
             services.AddSingleton<ICacheProcessor, CacheProcessor>();
             services.AddSingleton<CachePolicyManager>();
@@ -38,6 +38,8 @@ namespace DocHelper.Infrastructure
             );
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
+            services.AddScoped<IApplicationDbTransaction, ApplicationDbTransaction>();
 
             services.AddSingleton<ILocationService, LocationService>();
 
