@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using DocHelper.Domain.Common.Mappings;
 
-namespace DocHelper.Domain.Dto
+namespace DocHelper.Domain.Dto.Doctor.Create
 {
-    public class DoctorListDto : IMapFrom<Entities.DoctorAggregate.Doctor>
+    public class DoctorCreateDto
     {
-        public int Id { get; set; }
         public string Alias { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -14,8 +12,8 @@ namespace DocHelper.Domain.Dto
         public int WorkExperience { get; set; }
         public string Description { get; set; }
         public string Photo { get; set; }
-        public StatsDto Stats { get; set; }
-        public IList<InformationDto> Informations { get; set; }
-        public IList<DoctorSpecialtyDto> Specialties { get; set; }
+
+        public IList<InformationDto> Informations { get; set; } = new List<InformationDto>();
+        public IList<SpecialtyDto> Specialties { get; set; } = new List<SpecialtyDto>();
     }
 }

@@ -13,6 +13,11 @@
         private Stats()
         {
         }
+        
+        public Stats(Doctor doctor)
+        {
+            Doctor = doctor;
+        }
 
         public Stats(double rating, int countComments, int countLikes, int countDisLikes, Doctor doctor)
         {

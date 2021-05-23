@@ -13,22 +13,22 @@ namespace DocHelper.Infrastructure.Repository
 {
     public class BaseRepository<T> where T : BaseEntity
     {
-        private readonly ApplicationDbContext _dbContext;
+        protected readonly ApplicationDbContext DbContext;
 
         public BaseRepository(ApplicationDbContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
         public virtual async Task<T> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             var keyValues = new object[] {id};
-            return await _dbContext.Set<T>().FindAsync(keyValues, cancellationToken);
+            return await DbContext.Set<T>().FindAsync(keyValues, cancellationToken);
         }
 
         public async Task<IReadOnlyList<T>> ListAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Set<T>().Cacheable().ToListAsync(cancellationToken);
+            return await DbContext.Set<T>().Cacheable().ToListAsync(cancellationToken);
         }
 
         public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec,
@@ -52,22 +52,22 @@ namespace DocHelper.Infrastructure.Repository
 
         public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            await _dbContext.Set<T>().AddAsync(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            await DbContext.Set<T>().AddAsync(entity);
+            await DbContext.SaveChangesAsync(cancellationToken);
 
             return entity;
         }
 
         public async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            DbContext.Entry(entity).State = EntityState.Modified;
+            await DbContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
         {
-            _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            DbContext.Set<T>().Remove(entity);
+            await DbContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<T> FirstAsync(ISpecification<T> spec, CancellationToken cancellationToken = default)
@@ -85,7 +85,7 @@ namespace DocHelper.Infrastructure.Repository
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
             var evaluator = new SpecificationEvaluator<T>();
-            return evaluator.GetQuery(_dbContext.Set<T>().AsQueryable(), spec);
+            return evaluator.GetQuery(DbContext.Set<T>().AsQueryable(), spec);
         }
     }
 }
