@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using DocHelper.Application.Cache.Extensions;
+using DocHelper.Application.Common.Pipeline;
 using DocHelper.Application.Common.Specifications;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -17,8 +18,10 @@ namespace DocHelper.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.UseInMemoryCache(configuration);
-            
+
             services.AddTransient<SpecBuilderFactory>();
+
+            services.ConfigurePipelines();
 
             return services;
         }
