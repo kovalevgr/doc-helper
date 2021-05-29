@@ -5,10 +5,10 @@ namespace DocHelper.Domain.Pipeline
 {
     public abstract class BasePipeline
     {
-        public abstract IReadOnlyList<IPipelineStep> Steps { get; }
+        public abstract IReadOnlyList<Type> Steps { get; }
         public abstract CommonPipelineDto PipelineDto { get; }
 
-        public CommonPayloadDto PayloadDto { get; private set; } = new CommonPayloadDto();
+        public virtual CommonPayloadDto PayloadDto { get; } = new CommonPayloadDto();
         
         event Action<object> Finished;
 

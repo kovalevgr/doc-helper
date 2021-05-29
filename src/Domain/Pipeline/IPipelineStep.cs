@@ -1,7 +1,9 @@
-﻿namespace DocHelper.Domain.Pipeline
+﻿using System.Threading.Tasks;
+
+namespace DocHelper.Domain.Pipeline
 {
     public interface IPipelineStep
     {
-        void Execute(CommonPayloadDto payload);
+         Task Execute(CommonPayloadDto payload);
     }
 }

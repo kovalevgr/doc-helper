@@ -1,7 +1,9 @@
-﻿namespace DocHelper.Domain.Pipeline
+﻿using System.Threading.Tasks;
+
+namespace DocHelper.Domain.Pipeline
 {
     public interface IPipelineExecutor
     {
-        PipelineResult Execute(CommonPipelineDto dto);
+        Task<PipelineResult> Execute(CommonPipelineDto dto);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DocHelper.Domain.Pipeline;
 using DocHelper.Infrastructure.Pipeline.Builder;
 using Microsoft.Extensions.Logging;
@@ -16,15 +17,17 @@ namespace DocHelper.Infrastructure.Pipeline.Executor
             _builder = builder;
         }
 
-        public PipelineResult Execute(CommonPipelineDto dto)
+        public async Task<PipelineResult> Execute(CommonPipelineDto dto)
         {
             var result = new PipelineResult();
-            var pipeline = _builder.BuildByDto(dto);
-            foreach (var pipelineStep in pipeline.Steps)
+            var pipeline = _builder.BuildPipelineByDto(dto);
+            foreach (var pipelineStepType in pipeline.Steps)
             {
                 try
                 {
-                    pipelineStep.Execute(pipeline.PayloadDto);
+                    var step = _builder.GetStepByType(pipelineStepType);
+
+                    await step.Execute(pipeline.PayloadDto);
                 }
                 catch (Exception e)
                 {

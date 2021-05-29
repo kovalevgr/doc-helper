@@ -11,6 +11,11 @@ namespace DocHelper.Application.Common.Pipeline
     {
         public static IServiceCollection ConfigurePipelines(this IServiceCollection services)
         {
+            foreach (var pipeline in GetPipelines())
+            {
+                services.AddScoped(typeof(BasePipeline), pipeline);
+            }
+
             foreach (var stepType in GetSteps())
             {
                 services.AddScoped(typeof(IPipelineStep), stepType);
@@ -19,12 +24,19 @@ namespace DocHelper.Application.Common.Pipeline
             return services;
         }
 
+        private static IEnumerable<Type> GetPipelines()
+        {
+            return Assembly.GetExecutingAssembly()
+                .GetExportedTypes()
+                .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(BasePipeline)))
+                .ToList();
+        }
+
         private static IEnumerable<Type> GetSteps()
         {
             return Assembly.GetExecutingAssembly()
                 .GetExportedTypes()
-                .Where(t => t.GetInterfaces().Any(i =>
-                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IPipelineStep)))
+                .Where(x => typeof(IPipelineStep).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
                 .ToList();
         }
     }
