@@ -46,7 +46,7 @@ namespace DocHelper.Infrastructure.Cache.Utilities
         /// </summary>
         public static SortedSet<string> GetSqlCommandTableNames(string commandText)
         {
-            var commandTextKey = $"{XxHashUnsafe.ComputeHash(commandText):X}";
+            var commandTextKey = $"{HashUtilities.ComputeHash(commandText)}";
             return CommandTableNames.GetOrAdd(commandTextKey,
                 _ => new Lazy<SortedSet<string>>(() => GetRawSqlCommandTableNames(commandText),
                     LazyThreadSafetyMode.ExecutionAndPublication)).Value;

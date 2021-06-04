@@ -38,7 +38,7 @@ namespace DocHelper.Infrastructure.Cache.Key
             
 
             var cacheKey = GetCacheKey(command, cachePolicy.CacheSaltKey);
-            var cacheKeyHash = $"{XxHashUnsafe.ComputeHash(encodedString):X}";
+            var cacheKeyHash = $"{HashUtilities.ComputeHash(encodedString)}";
             var cacheDependencies = GetCacheDependencies(command, context, cachePolicy);
 
             return new CacheKey
