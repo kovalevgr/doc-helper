@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using DocHelper.Application.Common.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -9,34 +8,30 @@ namespace DocHelper.Infrastructure.Persistence
     public class ApplicationDbTransaction : IApplicationDbTransaction, IDisposable
     {
         private readonly ApplicationDbContext _dbContext;
-        [CanBeNull] private Task<IDbContextTransaction> _transaction;
+        [CanBeNull] private IDbContextTransaction _transaction;
         
         public ApplicationDbTransaction(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async void Begin()
+        public void Begin()
         {
-            _transaction = _dbContext.Database.BeginTransactionAsync();
+            _transaction = _dbContext.Database.BeginTransaction();
         }
 
-        public async void Commit()
+        public void Commit()
         {
             ThrowIfNotStarted();
 
-            var transaction = await _transaction;
-
-            await transaction.CommitAsync();
+            _transaction?.Commit();
         }
 
-        public async void Rollback()
+        public void Rollback()
         {
             ThrowIfNotStarted();
 
-            var transaction = await _transaction;
-
-            await transaction.RollbackAsync();
+            _transaction?.Rollback();
         }
 
         private void ThrowIfNotStarted()
