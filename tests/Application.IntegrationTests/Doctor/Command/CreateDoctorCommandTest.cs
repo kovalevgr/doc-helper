@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using DocHelper.Application.Doctor.Command.CreateDoctorCommand;
 using DocHelper.Domain.Dto.Doctor.Create;
@@ -7,22 +6,13 @@ using DocHelper.Domain.Enums;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Application.IntegrationTests.Specialty.Command
+namespace Application.IntegrationTests.Doctor.Command
 {
     using DocHelper.Domain.Entities.DoctorAggregate;
     using static Testing;
 
     public class CreateDoctorCommandTest : TestBase
     {
-        // [Test]
-        // public void ShouldRequireMinimumFields()
-        // {
-        //     var command = new CreateDoctorCommand();
-        //
-        //     FluentActions.Invoking(() =>
-        //         SendAsync(command)).Should().Throw<ValidationException>();
-        // }
-
         [Test]
         public async Task ShouldCreateDoctor()
         {
