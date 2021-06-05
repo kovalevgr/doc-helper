@@ -2,6 +2,7 @@
 using DocHelper.Application.Cache.Extensions;
 using DocHelper.Application.Common.Pipeline;
 using DocHelper.Application.Common.Specifications;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ namespace DocHelper.Application
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             services.UseInMemoryCache(configuration);
 
