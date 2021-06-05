@@ -40,6 +40,11 @@ namespace DocHelper.Infrastructure.Persistence
             }
         }
 
+        public static void ResetReferences()
+        {
+            _references = new Dictionary<string, object>();
+        }
+
         private static IEnumerable<IApplicationDbSeed> GetSeedsList() => AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(s => s.GetTypes())
             .Where(p => typeof(IApplicationDbSeed).IsAssignableFrom(p))
