@@ -1,9 +1,9 @@
 using DocHelper.Application;
 using DocHelper.Infrastructure;
 using DocHelper.Infrastructure.Middlewares;
+using DocHelper.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,12 +23,14 @@ namespace DocHelper.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddGrpc();
+
             services.ConfigureApplication(Configuration);
 
             services.ConfigureInfrastructure(Configuration);
-            
+
             services.AddControllersWithViews();
-            
+
             services.AddOptions();
 
             // In production, the Angular files will be served from this directory
@@ -59,9 +61,11 @@ namespace DocHelper.Web
             app.UseRouting();
 
             app.UseLocation();
-            
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGrpcService<DoctorService>();
+                
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");

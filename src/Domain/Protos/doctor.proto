@@ -1,0 +1,89 @@
+﻿syntax = "proto3";
+
+package Doctor;
+
+service DoctorRPCService {
+  rpc GetDoctorList(DoctorListQuery) returns (DoctorList);
+  rpc GetDoctor(DoctorQuery) returns (DoctorData);
+  rpc CreateDoctor(DoctorData) returns (DoctorCreateResponse);
+  rpc UpdateDoctor(DoctorPutQuery) returns (DoctorResponse);
+  rpc DeleteDoctor(DoctorQuery) returns (DoctorResponse);
+}
+
+message DoctorData {
+  int32 Id = 1;
+  string Alias = 2;
+  string FirstName = 3;
+  string LastName = 4;
+  string MiddleName = 5;
+  string Titles = 6;
+  int32 WorkExperience = 7;
+  string Description = 8;
+  string Photo = 9;
+  StatsData Stats = 10;
+  repeated InformationData Informations = 11;
+  repeated DoctorSpecialty Specialties = 12;
+}
+
+message StatsData {
+  double Rating = 1;
+  int32 CountComments = 2;
+  int32 CountLikes = 3;
+  int32 CountDisLikes = 4;
+}
+
+message InformationData {
+  InformationType Type = 1;
+  string Title = 2;
+  int32 Priority = 3;
+}
+
+enum InformationType {
+    WorkExperience = 0;
+    Education = 1;
+    Courses = 2;
+    Procedures = 3;
+    TreatmentOfDiseases = 4;
+}
+
+message DoctorSpecialty {
+  Specialty Specialty = 1;
+}
+
+message Specialty {
+  int32 Id = 1;
+  string Title = 2;
+  string Alias = 3;
+}
+
+message DoctorListQuery {
+   string DistrictAlias = 1;
+   string SpecialtyAlias = 2;
+   int32 PageNumber = 3;
+   int32 PageSize = 4;
+}
+
+message DoctorQuery {
+  int32 id = 1;
+}
+
+message DoctorList {
+  repeated DoctorData DoctorItemList = 1;
+}
+
+message DoctorPutQuery {
+  DoctorData DoctorDataItem = 1;
+  int32 Id = 2;
+}
+
+message DoctorCreateResponse {
+  string StatusMessage = 1;
+  int32 StatusCode = 2;
+  int32 OriginalId = 4;
+}
+
+message DoctorResponse {
+  string StatusMessage = 1;
+  bool Status = 2;
+  int32 StatusCode = 3;
+}
