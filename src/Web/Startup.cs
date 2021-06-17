@@ -1,6 +1,7 @@
 using DocHelper.Application;
 using DocHelper.Infrastructure;
 using DocHelper.Infrastructure.Middlewares;
+using DocHelper.Infrastructure.Swagger;
 using DocHelper.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -61,6 +62,8 @@ namespace DocHelper.Web
             app.UseRouting();
 
             app.UseLocation();
+
+            app.UseSwaggerApp(Configuration);
 
             app.UseEndpoints(endpoints =>
             {
