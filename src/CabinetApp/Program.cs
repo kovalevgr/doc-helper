@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using CabinetApp.Services;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using Microsoft.AspNetCore.Components;
@@ -33,6 +34,8 @@ namespace CabinetApp
 
                 return GrpcChannel.ForAddress(backendUrl, new GrpcChannelOptions { HttpHandler = httpHandler });
             });
+
+            builder.Services.AddScoped<DoctorService>();
 
             await builder.Build().RunAsync();
         }
