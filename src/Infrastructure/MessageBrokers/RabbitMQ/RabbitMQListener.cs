@@ -1,29 +1,97 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DocHelper.Domain.Events;
+using DocHelper.Infrastructure.Events;
+using Microsoft.Extensions.Options;
+using RawRabbit;
 
 namespace DocHelper.Infrastructure.MessageBrokers.RabbitMQ
 {
     public class RabbitMQListener : IEventListener
     {
+        private readonly IBusClient _busClient;
+        private readonly IEventBus _eventBus;
+        private readonly RabbitMQOptions _options;
+
+        public RabbitMQListener(
+            IBusClient busClient,
+            IEventBus eventBus,
+            IOptions<RabbitMQOptions> options)
+        {
+            _busClient = busClient;
+            _eventBus = eventBus;
+            _options = options.Value;
+        }
+
+        public void Subscribe<TEvent>() where TEvent : IEvent => Subscribe(typeof(TEvent));
+
         public void Subscribe(Type type)
         {
-            throw new NotImplementedException();
+            _busClient.SubscribeAsync(
+                (Func<IEvent, Task>) (async (msg) => { await _eventBus.PublishLocal(msg); }),
+                cfg => cfg.UseSubscribeConfiguration(
+                    c => c
+                        .OnDeclaredExchange(GetExchangeDeclaration(type))
+                        .FromDeclaredQueue(q =>
+                            q.WithName((_options.Queue.Name ?? AppDomain.CurrentDomain.FriendlyName).Trim().Trim('_') +
+                                       "_" + type.Name)))
+            );
         }
 
-        public void Subscribe<TEvent>() where TEvent : IEvent
+        public async Task Publish<TEvent>(TEvent @event) where TEvent : IEvent
         {
-            throw new NotImplementedException();
+            if (@event == null)
+            {
+                throw new ArgumentNullException(nameof(@event), "Event can not be null.");
+            }
+
+            await _busClient.PublishAsync(
+                @event,
+                cfg => cfg.UsePublishConfiguration(
+                    c => c
+                        .OnDeclaredExchange(GetExchangeDeclaration<TEvent>())
+                )
+            );
         }
 
-        public Task Publish<TEvent>(TEvent @event) where TEvent : IEvent
+        public async Task Publish(string message, string type)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                throw new ArgumentNullException(nameof(message), "Event message can not be null.");
+            }
+
+            if (string.IsNullOrWhiteSpace(type))
+            {
+                throw new ArgumentNullException(nameof(type), "Event type can not be null.");
+            }
+
+            await _busClient.PublishAsync(
+                message,
+                cfg => cfg.UsePublishConfiguration(
+                    c => c
+                        .OnDeclaredExchange(GetExchangeDeclaration(type))
+                )
+            );
         }
 
-        public Task Publish(string message, string type)
+        private Action<RawRabbit.Configuration.Exchange.IExchangeDeclarationBuilder> GetExchangeDeclaration<T>()
         {
-            throw new NotImplementedException();
+            return GetExchangeDeclaration(typeof(T));
+        }
+
+        private Action<RawRabbit.Configuration.Exchange.IExchangeDeclarationBuilder> GetExchangeDeclaration(Type type)
+        {
+            var name = MessageBrokersHelper.GetTypeName(type);
+
+            return GetExchangeDeclaration(name);
+        }
+
+        private Action<RawRabbit.Configuration.Exchange.IExchangeDeclarationBuilder> GetExchangeDeclaration(string name)
+        {
+            return e => e
+                .WithName(_options.Exchange.Name)
+                .WithArgument("key", name);
         }
     }
 }
