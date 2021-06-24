@@ -11,11 +11,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocHelper.Infrastructure.Repository
 {
-    public class BaseRepository<T> where T : BaseEntity
+    public abstract class BaseRepository<T> where T : BaseEntity
     {
         protected readonly ApplicationDbContext DbContext;
 
-        public BaseRepository(ApplicationDbContext dbContext)
+        protected BaseRepository(ApplicationDbContext dbContext)
         {
             DbContext = dbContext;
         }
@@ -52,7 +52,16 @@ namespace DocHelper.Infrastructure.Repository
 
         public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            await DbContext.Set<T>().AddAsync(entity);
+            await DbContext.Set<T>().AddAsync(entity, cancellationToken);
+            await DbContext.SaveChangesAsync(cancellationToken);
+
+            return entity;
+        }
+
+        protected virtual async Task<TEntity> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default)
+            where TEntity : class
+        {
+            await DbContext.Set<TEntity>().AddAsync(entity, cancellationToken);
             await DbContext.SaveChangesAsync(cancellationToken);
 
             return entity;
