@@ -4,10 +4,15 @@ using DocHelper.Domain.Entities.DoctorAggregate;
 
 namespace DocHelper.Domain.Repository
 {
-    public interface IDoctorRepository : IBaseRepository<Doctor>
+    public interface IDoctorRepository : IAggregateRepository, IBaseRepository<Doctor>
     {
-        Task<Stats> AddStatAsync(Stats entity, CancellationToken cancellationToken = default);
+        Task<Doctor> CreateDoctorAsync(Doctor doctor,
+            CancellationToken cancellationToken = default);
 
-        Task<Information> AddInformationAsync(Information entity, CancellationToken cancellationToken = default);
+        Task<Stats> CreateStatAsync(Stats stats,
+            CancellationToken cancellationToken = default);
+
+        Task<Information> CreateInformationAsync(Information information,
+            CancellationToken cancellationToken = default);
     }
 }

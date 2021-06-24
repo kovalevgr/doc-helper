@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using DocHelper.Domain.Dto.Doctor.Create;
@@ -6,6 +6,7 @@ using DocHelper.Domain.Entities.DoctorAggregate;
 using DocHelper.Domain.Factory.Doctor;
 using DocHelper.Domain.Repository;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace DocHelper.Application.Doctor.Command.CreateDoctorCommand
 {
@@ -13,11 +14,14 @@ namespace DocHelper.Application.Doctor.Command.CreateDoctorCommand
     {
         public class CreateDoctorHandler : IRequestHandler<CreateDoctorCommand, int>
         {
-            private readonly IDoctorRepository _repository;
+            private readonly IDoctorRepository _aggregateRepository;
+            private readonly ILogger<CreateDoctorHandler> _logger;
 
-            public CreateDoctorHandler(IDoctorRepository repository)
+            public CreateDoctorHandler(IDoctorRepository aggregateRepository,
+                ILogger<CreateDoctorHandler> logger)
             {
-                _repository = repository;
+                _aggregateRepository = aggregateRepository;
+                _logger = logger;
             }
 
             public async Task<int> Handle(
@@ -26,12 +30,33 @@ namespace DocHelper.Application.Doctor.Command.CreateDoctorCommand
             {
                 DoctorCreateDto dto = command;
 
+                _aggregateRepository.BeginTransaction();
+
                 var doctor = await CreateDoctor(dto, cancellationToken);
 
-                CreateDoctorStat(doctor, cancellationToken);
+                try
+                {
+                    CreateDoctorStat(doctor, cancellationToken);
 
-                ProcessingInformations(doctor, dto, cancellationToken);
-                
+                    ProcessingInformations(doctor, dto, cancellationToken);
+                    
+                    _aggregateRepository.SaveChanges();
+                    
+                    _aggregateRepository.Commit();
+                }
+                catch (Exception exception)
+                {
+                    _aggregateRepository.Rollback();
+                    
+                    _logger.LogError(exception.Message);
+
+                    throw;
+                }
+                finally
+                {
+                    _aggregateRepository.Dispose();
+                }
+
                 return doctor.Id;
             }
 
@@ -40,13 +65,10 @@ namespace DocHelper.Application.Doctor.Command.CreateDoctorCommand
                 DoctorCreateDto dto,
                 CancellationToken cancellationToken)
             {
-                var tasks = new List<Task<Information>>();
                 foreach (var information in dto.Informations)
                 {
-                    tasks.Add(CreateInformation(doctor, information, cancellationToken));
+                    await CreateInformation(doctor, information, cancellationToken);
                 }
-
-                await Task.WhenAll(tasks);
             }
 
             private Task<Information> CreateInformation(
@@ -54,7 +76,7 @@ namespace DocHelper.Application.Doctor.Command.CreateDoctorCommand
                 InformationDto dto,
                 CancellationToken cancellationToken)
             {
-                return _repository.AddInformationAsync(CreateDoctorInformationFactory.Create(doctor, dto),
+                return _aggregateRepository.CreateInformationAsync(CreateDoctorInformationFactory.Create(doctor, dto),
                     cancellationToken);
             }
 
@@ -62,14 +84,14 @@ namespace DocHelper.Application.Doctor.Command.CreateDoctorCommand
                 Domain.Entities.DoctorAggregate.Doctor doctor,
                 CancellationToken cancellationToken)
             {
-                await _repository.AddStatAsync(CreateDoctorStatsFactory.Create(doctor), cancellationToken);
+                await _aggregateRepository.CreateStatAsync(CreateDoctorStatsFactory.Create(doctor), cancellationToken);
             }
 
             private async Task<Domain.Entities.DoctorAggregate.Doctor> CreateDoctor(
                 DoctorCreateDto dto,
                 CancellationToken cancellationToken)
             {
-                return await _repository.AddAsync(CreateDoctorFactory.Create(dto), cancellationToken);
+                return await _aggregateRepository.AddAsync(CreateDoctorFactory.Create(dto), cancellationToken);
             }
         }
     }

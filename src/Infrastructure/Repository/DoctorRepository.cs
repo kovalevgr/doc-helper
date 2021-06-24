@@ -6,28 +6,28 @@ using DocHelper.Infrastructure.Persistence;
 
 namespace DocHelper.Infrastructure.Repository
 {
-    public class DoctorRepository : BaseRepository<Doctor>, IDoctorRepository
+    public class DoctorRepository : AggregateRepository<Doctor>, IDoctorRepository
     {
         public DoctorRepository(ApplicationDbContext dbContext) : base(dbContext)
-        {
-        }
+        { }
 
-        public async Task<Stats> AddStatAsync(Stats entity, CancellationToken cancellationToken = default)
-        {
-            await DbContext.Set<Stats>().AddAsync(entity, cancellationToken);
-            await DbContext.SaveChangesAsync(cancellationToken);
-
-            return entity;
-        }
-
-        public async Task<Information> AddInformationAsync(
-            Information entity,
+        public async Task<Doctor> CreateDoctorAsync(Doctor doctor,
             CancellationToken cancellationToken = default)
         {
-            await DbContext.Set<Information>().AddAsync(entity, cancellationToken);
-            await DbContext.SaveChangesAsync(cancellationToken);
+            return await AddAsync(doctor, cancellationToken);
+        }
 
-            return entity;
+        public async Task<Stats> CreateStatAsync(Stats stats,
+            CancellationToken cancellationToken = default)
+        {
+            return await AddAsync(stats, cancellationToken);
+        }
+
+        public async Task<Information> CreateInformationAsync(
+            Information information,
+            CancellationToken cancellationToken = default)
+        {
+            return await AddAsync(information, cancellationToken);
         }
     }
 }
