@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DocHelper.Domain.Events;
 
-namespace DocHelper.Domain.Repository
+namespace DocHelper.Domain.Aggregate
 {
     public class AggregateState
     {
@@ -10,6 +10,12 @@ namespace DocHelper.Domain.Repository
         public int Version { get; } = 0;
         public DateTime CreatedUtc { get; }
         public IEnumerable<IEvent> Events { get; } = new List<IEvent>();
+        
+        public AggregateState(Guid id, IEnumerable<IEvent> events)
+        {
+            Id = id;
+            Events = events;
+        }
         
         public AggregateState(Guid id, int version, DateTime createdUtc)
         {
