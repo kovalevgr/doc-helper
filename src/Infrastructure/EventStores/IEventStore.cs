@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DocHelper.Domain.Entities;
-using DocHelper.Domain.Repository;
+using DocHelper.Domain.Aggregate;
 
 namespace DocHelper.Infrastructure.EventStores
 {

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DocHelper.Domain.Aggregate;
 using DocHelper.Domain.Events;
-using DocHelper.Domain.Repository;
 using DocHelper.Infrastructure.EventStores.Stores;
 using DocHelper.Infrastructure.MessageBrokers;
 using FluentValidation;
