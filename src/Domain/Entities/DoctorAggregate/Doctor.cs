@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using DocHelper.Domain.Aggregate;
 using DocHelper.Domain.Interfaces;
 
 namespace DocHelper.Domain.Entities.DoctorAggregate
 {
     public class Doctor : BaseEntity, IAggregateRoot
     {
+        public Guid AggregateId { get; set; }
         public string Alias { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
@@ -28,6 +31,7 @@ namespace DocHelper.Domain.Entities.DoctorAggregate
         public Doctor(string alias, string firstName, string lastName, string middleName, string titles, int workExperience,
             string description, string photo)
         {
+            AggregateId = new Guid();
             Alias = alias;
             FirstName = firstName;
             LastName = lastName;
@@ -42,6 +46,7 @@ namespace DocHelper.Domain.Entities.DoctorAggregate
             string description, string photo, Stats stats, List<Information> informations,
             List<DoctorSpecialty> specialties)
         {
+            AggregateId = new Guid();
             FirstName = firstName;
             LastName = lastName;
             MiddleName = middleName;
