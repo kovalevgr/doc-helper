@@ -1,5 +1,5 @@
 ﻿using System;
-using DocHelper.Application.Common.Interfaces;
+using DocHelper.Domain.Common.Interfaces;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Storage;
 

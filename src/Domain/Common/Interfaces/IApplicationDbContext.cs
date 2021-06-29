@@ -1,15 +1,16 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using DocHelper.Domain.Entities;
 using DocHelper.Domain.Entities.DoctorAggregate;
 using Microsoft.EntityFrameworkCore;
 
-namespace DocHelper.Application.Common.Interfaces
+namespace DocHelper.Domain.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
-        DbSet<Domain.Entities.City> Cities { get; set; }
-        DbSet<Domain.Entities.Specialty> Specialties { get; set; }
-        DbSet<Domain.Entities.DoctorAggregate.Doctor> Doctors { get; set; }
+        DbSet<City> Cities { get; set; }
+        DbSet<Specialty> Specialties { get; set; }
+        DbSet<Doctor> Doctors { get; set; }
         DbSet<Information> Informations { get; set; }
         DbSet<Stats> Stats { get; set; }
         DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }

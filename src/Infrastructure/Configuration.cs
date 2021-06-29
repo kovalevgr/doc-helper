@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using DocHelper.Application.Common.Interfaces;
+using DocHelper.Domain.Common.Interfaces;
+using DocHelper.Domain.Common.Services;
 using DocHelper.Domain.Pipeline;
 using DocHelper.Domain.Repository;
 using DocHelper.Infrastructure.Cache.Configuration;
@@ -9,6 +10,7 @@ using DocHelper.Infrastructure.Persistence;
 using DocHelper.Infrastructure.Persistence.Interceptors;
 using DocHelper.Infrastructure.Pipeline.Builder;
 using DocHelper.Infrastructure.Pipeline.Executor;
+using DocHelper.Infrastructure.Pipeline.Extension;
 using DocHelper.Infrastructure.Repository;
 using DocHelper.Infrastructure.Services;
 using DocHelper.Infrastructure.Swagger;
@@ -57,6 +59,8 @@ namespace DocHelper.Infrastructure
 
             services.AddScoped<PipelineBuilder>();
             services.AddScoped<IPipelineExecutor, PipelineExecutor>();
+            
+            services.ConfigurePipelines();
 
             return services;
         }

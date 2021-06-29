@@ -1,4 +1,4 @@
-﻿using DocHelper.Application.Common.Interfaces;
+﻿using DocHelper.Domain.Common.Services;
 using DocHelper.Domain.ValueObjects;
 using Microsoft.Extensions.Configuration;
 

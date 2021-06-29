@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
-using DocHelper.Application.Common.Interfaces;
+using DocHelper.Domain.Common.Interfaces;
 using DocHelper.Domain.Entities;
 
 namespace DocHelper.Application.Common.Specifications

@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using DocHelper.Application.Common.Interfaces;
+using DocHelper.Domain.Common.Interfaces;
 using DocHelper.Domain.Entities;
 using DocHelper.Domain.Entities.DoctorAggregate;
 using Microsoft.EntityFrameworkCore;

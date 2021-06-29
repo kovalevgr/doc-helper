@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace DocHelper.Application.Common.Interfaces
+namespace DocHelper.Domain.Common.Interfaces
 {
     public interface IApplicationDbSeed
     {

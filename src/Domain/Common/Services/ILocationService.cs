@@ -1,6 +1,6 @@
 ﻿using DocHelper.Domain.ValueObjects;
 
-namespace DocHelper.Application.Common.Interfaces
+namespace DocHelper.Domain.Common.Services
 {
     public interface ILocationService
     {

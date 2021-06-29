@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DocHelper.Application.Common.Interfaces;
+using DocHelper.Domain.Common.Interfaces;
 using DocHelper.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 

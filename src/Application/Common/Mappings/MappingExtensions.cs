@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using DocHelper.Application.Common.Models;
 
 namespace DocHelper.Application.Common.Mappings

@@ -5,7 +5,7 @@ using System.Reflection;
 using DocHelper.Domain.Pipeline;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DocHelper.Application.Common.Pipeline
+namespace DocHelper.Infrastructure.Pipeline.Extension
 {
     public static class PipelineExtensions
     {

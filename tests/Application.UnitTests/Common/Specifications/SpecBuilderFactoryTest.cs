@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using DocHelper.Application.Common.Interfaces;
 using DocHelper.Application.Common.Specifications;
+using DocHelper.Domain.Common.Interfaces;
 using DocHelper.Domain.Entities;
 using Moq;
 using NUnit.Framework;

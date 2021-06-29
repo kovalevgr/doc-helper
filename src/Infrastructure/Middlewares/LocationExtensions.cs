@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DocHelper.Application.Common.Interfaces;
+using DocHelper.Domain.Common.Services;
 using DocHelper.Domain.ValueObjects;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

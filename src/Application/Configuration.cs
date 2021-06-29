@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using DocHelper.Application.Cache.Extensions;
-using DocHelper.Application.Common.Pipeline;
 using DocHelper.Application.Common.Specifications;
 using FluentValidation;
 using MediatR;
@@ -22,8 +21,6 @@ namespace DocHelper.Application
             services.UseInMemoryCache(configuration);
 
             services.AddTransient<SpecBuilderFactory>();
-
-            services.ConfigurePipelines();
 
             return services;
         }
