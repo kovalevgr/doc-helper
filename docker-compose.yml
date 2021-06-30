@@ -28,7 +28,7 @@ services:
       - 5080:80
       - 5443:443
     depends_on:
-      - db
+      - postgres
     restart: on-failure
 
   db:
@@ -36,3 +36,8 @@ services:
     environment:
       - "SA_PASSWORD=Your_password123"
       - "ACCEPT_EULA=Y"
+        
+  postgres:
+    image: "postgres: latest"
+    ports:
+      - 5432:5432

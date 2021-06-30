@@ -46,6 +46,9 @@ namespace DocHelper.Infrastructure
                     .AddInterceptors(GetInterceptors(services))
             );
 
+            services.AddDbContext<DocumentDbContext>(options =>
+                options.UseNpgsql(configuration.GetConnectionString("DefaultDocumentConnection")));
+
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             services.AddScoped<IApplicationDbTransaction, ApplicationDbTransaction>();
