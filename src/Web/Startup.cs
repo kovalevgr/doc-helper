@@ -63,8 +63,6 @@ namespace DocHelper.Web
 
             app.UseLocation();
 
-            app.UseSwaggerApp(Configuration);
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<DoctorService>();

@@ -6,7 +6,6 @@ using DocHelper.Domain.Aggregate;
 using DocHelper.Domain.Events;
 using DocHelper.Infrastructure.EventStores.Stores;
 using DocHelper.Infrastructure.MessageBrokers;
-using FluentValidation;
 using Newtonsoft.Json;
 
 namespace DocHelper.Infrastructure.EventStores
@@ -14,17 +13,15 @@ namespace DocHelper.Infrastructure.EventStores
     public class EventStore : IEventStore
     {
         private readonly IStore _store;
-        private readonly IValidatorFactory _validationFactory;
         
         private readonly JsonSerializerSettings _jsonSerializerSettings = new()
         {
             TypeNameHandling = TypeNameHandling.All
         };
 
-        public EventStore(IStore store, IValidatorFactory validationFactory)
+        public EventStore(IStore store)
         {
             _store = store;
-            _validationFactory = validationFactory;
         }
 
         public async Task<IEnumerable<StreamState>> GetEvents(Guid aggregateId, int? version = null,
@@ -42,13 +39,6 @@ namespace DocHelper.Infrastructure.EventStores
             foreach (var @event in events)
             {
                 initialVersion++;
-
-                var validator = _validationFactory.GetValidator(@event.GetType());
-                var result = validator?.Validate(new ValidationContext<IEvent>(@event));
-                if (result != null && !result.IsValid)
-                {
-                    continue;
-                }
 
                 await AppendEvent(aggregate.Id, @event, initialVersion, action);
             }

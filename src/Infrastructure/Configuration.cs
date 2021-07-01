@@ -6,14 +6,15 @@ using DocHelper.Domain.Repository;
 using DocHelper.Infrastructure.Cache.Configuration;
 using DocHelper.Infrastructure.Cache.Policy;
 using DocHelper.Infrastructure.Cache.Processor;
+using DocHelper.Infrastructure.EventStores;
 using DocHelper.Infrastructure.Persistence;
 using DocHelper.Infrastructure.Persistence.Interceptors;
 using DocHelper.Infrastructure.Pipeline.Builder;
 using DocHelper.Infrastructure.Pipeline.Executor;
 using DocHelper.Infrastructure.Pipeline.Extension;
+using DocHelper.Infrastructure.Redis.Extensions;
 using DocHelper.Infrastructure.Repository;
 using DocHelper.Infrastructure.Services;
-using DocHelper.Infrastructure.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -27,9 +28,6 @@ namespace DocHelper.Infrastructure
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            // swagger
-            services.AddSwagger(configuration);
-            
             // Cache section
             configuration.GetSection(nameof(CacheOptions)).Bind(new CacheOptions());
             services.Configure<CacheOptions>(configuration.GetSection(nameof(CacheOptions)));
