@@ -55,6 +55,10 @@ namespace DocHelper.Infrastructure
 
             services.AddSingleton<ILocationService, LocationService>();
 
+            services.AddEventStore(configuration);
+
+            services.AddRedisExtensions(configuration);
+
             // Repo section
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<ISpecialtyRepository, SpecialtyRepository>();

@@ -25,7 +25,9 @@
         <PackageReference Include="RawRabbit.DependencyInjection.ServiceCollection" Version="2.0.0-rc5" />
         <PackageReference Include="RawRabbit.Operations.Publish" Version="2.0.0-rc5" />
         <PackageReference Include="RawRabbit.Operations.Subscribe" Version="2.0.0-rc5" />
-        <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
+        <PackageReference Include="StackExchange.Redis" Version="2.2.50" />
+        <PackageReference Include="StackExchange.Redis.Extensions.Core" Version="7.1.1" />
+        <PackageReference Include="StackExchange.Redis.Extensions.System.Text.Json" Version="7.1.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     </ItemGroup>
 
