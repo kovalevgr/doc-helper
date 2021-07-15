@@ -1,8 +1,10 @@
 using DocHelper.Application;
 using DocHelper.Infrastructure;
 using DocHelper.Infrastructure.Middlewares;
-using DocHelper.Infrastructure.Swagger;
+using DocHelper.Infrastructure.GraphQL.Extensions;
+using DocHelper.Web.GraphQL;
 using DocHelper.Web.Services;
+using GraphQL.Server.Ui.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -34,6 +36,8 @@ namespace DocHelper.Web
 
             services.AddOptions();
 
+            services.AddGraphServer<Query>();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
@@ -59,6 +63,8 @@ namespace DocHelper.Web
                 app.UseSpaStaticFiles();
             }
 
+            app.UseWebSockets();
+
             app.UseRouting();
 
             app.UseLocation();
@@ -66,10 +72,17 @@ namespace DocHelper.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<DoctorService>();
-                
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+            });
+
+            app.UseEndpoints(endpoints => endpoints.MapGraphQL());
+
+            app.UseGraphQLVoyager(new VoyagerOptions
+            {
+                GraphQLEndPoint = "/graphql",
             });
 
             app.UseSpa(spa =>
