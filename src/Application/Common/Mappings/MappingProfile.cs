@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using DocHelper.Application.Common.App;
+using DocHelper.Domain.Common.Extensions;
 using DocHelper.Domain.Common.Mappings;
 
 namespace DocHelper.Application.Common.Mappings
