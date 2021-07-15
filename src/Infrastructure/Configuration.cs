@@ -37,11 +37,10 @@ namespace DocHelper.Infrastructure
             services.AddSingleton<CachePolicyManager>();
 
             // DB section
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                        configuration.GetConnectionString("DefaultConnection"),
-                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
-                    .AddInterceptors(GetInterceptors(services))
+            services.AddDbContextPool<ApplicationDbContext>(
+                options =>
+                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+                        .AddInterceptors(GetInterceptors(services))
             );
 
             services.AddDbContext<DocumentDbContext>(options =>
@@ -64,7 +63,7 @@ namespace DocHelper.Infrastructure
 
             services.AddScoped<PipelineBuilder>();
             services.AddScoped<IPipelineExecutor, PipelineExecutor>();
-            
+
             services.ConfigurePipelines();
 
             return services;
