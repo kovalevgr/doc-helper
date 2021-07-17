@@ -1,0 +1,631 @@
+﻿@page "/hospital-dashbord"
+
+<div class="container-fluid p-0">
+<div class="row justify-content-center">
+<div class="col-lg-12">
+    <div class="single_element">
+        <div class="quick_activity">
+            <div class="row">
+                <div class="col-12">
+                    <div class="quick_activity_wrap">
+                        <div class="single_quick_activity d-flex">
+                            <div class="icon">
+                                <img src="./Hospital_files/man.svg" alt="">
+                            </div>
+                            <div class="count_content">
+                                <h3>
+                                    <span class="counter">520</span>
+                                </h3>
+                                <p>Doctors</p>
+                            </div>
+                        </div>
+                        <div class="single_quick_activity d-flex">
+                            <div class="icon">
+                                <img src="./Hospital_files/cap.svg" alt="">
+                            </div>
+                            <div class="count_content">
+                                <h3>
+                                    <span class="counter">6969</span>
+                                </h3>
+                                <p>Nurses</p>
+                            </div>
+                        </div>
+                        <div class="single_quick_activity d-flex">
+                            <div class="icon">
+                                <img src="./Hospital_files/wheel.svg" alt="">
+                            </div>
+                            <div class="count_content">
+                                <h3>
+                                    <span class="counter">7509</span>
+                                </h3>
+                                <p>Patients</p>
+                            </div>
+                        </div>
+                        <div class="single_quick_activity d-flex">
+                            <div class="icon">
+                                <img src="./Hospital_files/pharma.svg" alt="">
+                            </div>
+                            <div class="count_content">
+                                <h3>
+                                    <span class="counter">2110</span>
+                                </h3>
+                                <p>Pharmacusts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 col-xl-12">
+<div class="white_box mb_30 " style="position: relative;">
+<div class="box_header border_bottom_1px  ">
+    <div class="main-title">
+        <h3 class="mb_25">Hospital Survey</h3>
+    </div>
+</div>
+<div class="income_servay">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="count_content">
+                <h3>$ <span class="counter">305</span> </h3>
+                <p>Today's Income</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="count_content">
+                <h3>$ <span class="counter">1005</span> </h3>
+                <p>This Week's Income</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="count_content">
+                <h3>$ <span class="counter">5505</span> </h3>
+                <p>This Month's Income</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="count_content">
+                <h3>$ <span class="counter">155615</span> </h3>
+                <p>This Year's Income</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-7">
+<div class="white_box QA_section card_height_100">
+<div class="white_box_tittle list_header m-0 align-items-center">
+    <div class="main-title mb-sm-15">
+        <h3 class="m-0 nowrap">Patients</h3>
+    </div>
+    <div class="box_right d-flex lms_block">
+        <div class="serach_field-area2">
+            <div class="search_inner">
+                <form active="#">
+                    <div class="search_field">
+                        <input type="text" placeholder="Search here...">
+                    </div>
+                    <button type="submit">
+                        <i class="ti-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="QA_table ">
+<!-- table-responsive -->
+<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+<table class="table lms_table_active2 dataTable no-footer dtr-inline collapsed" id="DataTables_Table_0" role="grid" style="width: 627px;">
+<thead>
+<tr role="row">
+    <th scope="col" class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 134px;" aria-sort="ascending" aria-label="Patients Name: activate to sort column descending">Patients Name</th><th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 84px;" aria-label="department: activate to sort column ascending">department</th><th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 91px;" aria-label="Appointment Date: activate to sort column ascending">Appointment Date</th><th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 78px;" aria-label="Serial Number: activate to sort column ascending">Serial Number</th><th scope="col" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="Amount: activate to sort column ascending">Amount</th>
+</tr>
+</thead>
+<tbody>
+
+
+<tr role="row" class="odd">
+    <th scope="row" tabindex="0" class="sorting_1">
+        <div class="patient_thumb d-flex align-items-center">
+            <div class="student_list_img mr_20">
+                <img src="./Hospital_files/pataint.png" alt="" srcset="">
+            </div>
+            <p>Jhon Kural</p>
+        </div>
+    </th>
+    <td>Monte Carlo</td>
+    <td>11/03/2020</td>
+    <td>MDC65454</td>
+    <td style="display: none;">
+        <div class="amoutn_action d-flex align-items-center">
+            $29,192
+            <div class="dropdown ml-4">
+                <a class=" dropdown-toggle hide_pils" href="https://demo.dashboardpack.com/hospital-html/index.html#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">View</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Edit</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Delete</a>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
+<tr role="row" class="even">
+    <th scope="row" tabindex="0" class="sorting_1">
+        <div class="patient_thumb d-flex align-items-center">
+            <div class="student_list_img mr_20">
+                <img src="./Hospital_files/2.png" alt="" srcset="">
+            </div>
+            <p>Jhon Kural</p>
+        </div>
+    </th>
+    <td>Monte Carlo</td>
+    <td>11/03/2020</td>
+    <td>MDC65454</td>
+    <td style="display: none;">
+        <div class="amoutn_action d-flex align-items-center">
+            $29,192
+            <div class="dropdown ml-4">
+                <a class=" dropdown-toggle hide_pils" href="https://demo.dashboardpack.com/hospital-html/index.html#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">View</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Edit</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Delete</a>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
+<tr role="row" class="odd">
+    <th scope="row" tabindex="0" class="sorting_1">
+        <div class="patient_thumb d-flex align-items-center">
+            <div class="student_list_img mr_20">
+                <img src="./Hospital_files/3.png" alt="" srcset="">
+            </div>
+            <p>Jhon Kural</p>
+        </div>
+    </th>
+    <td>Monte Carlo</td>
+    <td>11/03/2020</td>
+    <td>MDC65454</td>
+    <td style="display: none;">
+        <div class="amoutn_action d-flex align-items-center">
+            $29,192
+            <div class="dropdown ml-4">
+                <a class=" dropdown-toggle hide_pils" href="https://demo.dashboardpack.com/hospital-html/index.html#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">View</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Edit</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Delete</a>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
+<tr role="row" class="even">
+    <th scope="row" tabindex="0" class="sorting_1">
+        <div class="patient_thumb d-flex align-items-center">
+            <div class="student_list_img mr_20">
+                <img src="./Hospital_files/4.png" alt="" srcset="">
+            </div>
+            <p>Jhon Kural</p>
+        </div>
+    </th>
+    <td>Monte Carlo</td>
+    <td>11/03/2020</td>
+    <td>MDC65454</td>
+    <td style="display: none;">
+        <div class="amoutn_action d-flex align-items-center">
+            $29,192
+            <div class="dropdown ml-4">
+                <a class=" dropdown-toggle hide_pils" href="https://demo.dashboardpack.com/hospital-html/index.html#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">View</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Edit</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Delete</a>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
+<tr role="row" class="odd">
+    <th scope="row" tabindex="0" class="sorting_1">
+        <div class="patient_thumb d-flex align-items-center">
+            <div class="student_list_img mr_20">
+                <img src="./Hospital_files/5.png" alt="" srcset="">
+            </div>
+            <p>Jhon Kural</p>
+        </div>
+    </th>
+    <td>Monte Carlo</td>
+    <td>11/03/2020</td>
+    <td>MDC65454</td>
+    <td style="display: none;">
+        <div class="amoutn_action d-flex align-items-center">
+            $29,192
+            <div class="dropdown ml-4">
+                <a class=" dropdown-toggle hide_pils" href="https://demo.dashboardpack.com/hospital-html/index.html#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">View</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Edit</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Delete</a>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
+<tr role="row" class="even">
+    <th scope="row" tabindex="0" class="sorting_1">
+        <div class="patient_thumb d-flex align-items-center">
+            <div class="student_list_img mr_20">
+                <img src="./Hospital_files/6.png" alt="" srcset="">
+            </div>
+            <p>Jhon Kural</p>
+        </div>
+    </th>
+    <td>Monte Carlo</td>
+    <td>11/03/2020</td>
+    <td>MDC65454</td>
+    <td style="display: none;">
+        <div class="amoutn_action d-flex align-items-center">
+            $29,192
+            <div class="dropdown ml-4">
+                <a class=" dropdown-toggle hide_pils" href="https://demo.dashboardpack.com/hospital-html/index.html#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">View</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Edit</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Delete</a>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
+<tr role="row" class="odd">
+    <th scope="row" tabindex="0" class="sorting_1">
+        <div class="patient_thumb d-flex align-items-center">
+            <div class="student_list_img mr_20">
+                <img src="./Hospital_files/6.png" alt="" srcset="">
+            </div>
+            <p>Jhon Kural</p>
+        </div>
+    </th>
+    <td>Monte Carlo</td>
+    <td>11/03/2020</td>
+    <td>MDC65454</td>
+    <td style="display: none;">
+        <div class="amoutn_action d-flex align-items-center">
+            $29,192
+            <div class="dropdown ml-4">
+                <a class=" dropdown-toggle hide_pils" href="https://demo.dashboardpack.com/hospital-html/index.html#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">View</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Edit</a>
+                    <a class="dropdown-item" href="https://demo.dashboardpack.com/hospital-html/index.html#">Delete</a>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-xl-12">
+    <div class="white_box card_height_100">
+        <div class="box_header border_bottom_1px  ">
+            <div class="main-title">
+                <h3 class="mb_25">Hospital Staff</h3>
+            </div>
+        </div>
+        <div class="staf_list_wrapper sraf_active owl-carousel owl-loaded owl-drag">
+            <!-- single carousel  -->
+
+            <!-- single carousel  -->
+
+            <!-- single carousel  -->
+
+            <!-- single carousel  -->
+
+            <!-- single carousel  -->
+
+            <!-- single carousel  -->
+
+            <!-- single carousel  -->
+
+            <!-- single carousel  -->
+
+            <div class="owl-stage-outer">
+                <div class="owl-stage" style="transform: translate3d(-2628px, 0px, 0px); transition: all 0.8s ease 0s; width: 4672px;">
+                    <div class="owl-item cloned" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/5(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/1.png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/2(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/3(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/1.png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/2(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/3(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/4(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/5(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item active" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/1.png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item active" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/2(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item active" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/3(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned active" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/1.png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/2(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/3(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                    <div class="owl-item cloned" style="width: 262px; margin-right: 30px;">
+                        <div class="single_staf">
+                            <div class="staf_thumb">
+                                <img src="./Hospital_files/4(1).png" alt="">
+                            </div>
+                            <h4>Dr. Sysla J Smith</h4>
+                            <p>Doctor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-nav">
+                <button type="button" role="presentation" class="owl-prev">
+                    <i class="fa fa-angle-left"></i>
+                </button>
+                <button type="button" role="presentation" class="owl-next">
+                    <i class="fa fa-angle-right"></i>
+                </button>
+            </div>
+            <div class="owl-dots">
+                <button role="button" class="owl-dot">
+                    <span></span>
+                </button>
+                <button role="button" class="owl-dot active">
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-6">
+    <div class="white_box card_height_100">
+        <div class="box_header border_bottom_1px  ">
+            <div class="main-title">
+                <h3 class="mb_25">Recent Activity</h3>
+            </div>
+        </div>
+        <div class="Activity_timeline">
+            <ul>
+                <li>
+                    <div class="activity_bell"></div>
+                    <div class="activity_wrap">
+                        <h6>5 min ago</h6>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="activity_bell"></div>
+                    <div class="activity_wrap">
+                        <h6>5 min ago</h6>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="activity_bell"></div>
+                    <div class="activity_wrap">
+                        <h6>5 min ago</h6>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="activity_bell"></div>
+                    <div class="activity_wrap">
+                        <h6>5 min ago</h6>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-xl-6">
+    <div class="white_box mb_30">
+        <div class="box_header border_bottom_1px  ">
+            <div class="main-title">
+                <h3 class="mb_25">Recent Activity</h3>
+            </div>
+        </div>
+        <div class="activity_progressbar">
+            <div class="single_progressbar">
+                <h6>USA</h6>
+                <div id="bar1" class="barfiller">
+                    <div class="tipWrap" style="display: inline;">
+                        <span class="tip" style="left: 475.613px; transition: left 3s ease-in-out 0s;">95%</span>
+                    </div>
+                    <span class="fill" data-percentage="95" style="background: rgb(8, 155, 171); width: 497.8px; transition: width 3s ease-in-out 0s;"></span>
+                </div>
+            </div>
+            <div class="single_progressbar">
+                <h6>AFRICA</h6>
+                <div id="bar2" class="barfiller">
+                    <div class="tipWrap" style="display: inline;">
+                        <span class="tip" style="left: 371.725px; transition: left 3s ease-in-out 0s;">75%</span>
+                    </div>
+                    <span class="fill" data-percentage="75" style="background: rgb(40, 167, 69); width: 393px; transition: width 3s ease-in-out 0s;"></span>
+                </div>
+            </div>
+            <div class="single_progressbar">
+                <h6>UK</h6>
+                <div id="bar3" class="barfiller">
+                    <div class="tipWrap" style="display: inline;">
+                        <span class="tip" style="left: 266.025px; transition: left 3s ease-in-out 0s;">55%</span>
+                    </div>
+                    <span class="fill" data-percentage="55" style="background: rgb(255, 193, 7); width: 288.2px; transition: width 3s ease-in-out 0s;"></span>
+                </div>
+            </div>
+            <div class="single_progressbar">
+                <h6>CANADA</h6>
+                <div id="bar4" class="barfiller">
+                    <div class="tipWrap" style="display: inline;">
+                        <span class="tip" style="left: 109.412px; transition: left 3s ease-in-out 0s;">25%</span>
+                    </div>
+                    <span class="fill" data-percentage="25" style="background: rgb(220, 53, 69); width: 131px; transition: width 3s ease-in-out 0s;"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>

@@ -1,44 +1,43 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">CabinetApp</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<!-- sidebar  -->
+<!-- sidebar part here -->
+<nav class="sidebar">
+    <div class="logo d-flex justify-content-between">
+        <NavLink href="" Match="NavLinkMatch.All">
+            <img src="/img/logo.png" alt="main">
+        </NavLink>
+        
+        <div class="sidebar_close_icon d-lg-none">
+            <i class="ti-close"></i>
+        </div>
+    </div>
+    <ul id="sidebar_menu" class="metismenu">
+        <li class="side_menu_title">
+            <span>Dashboard</span>
+        </li>
+        <li class="mm-active">
+            <NavLink class="has-arrow" href="" aria-expanded="true">
+                <img src="/img/house.svg" alt="">
+                <span>Dashboard</span>
+            </NavLink>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
+            <ul class="mm-collapse mm-show">
+                <li>
+                    <NavLink class="active" href="dash1">
+                        Dashboard 1
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink href="dash2">
+                        Dashboard 2
+                    </NavLink>
+                </li>
+            </ul>
+
         </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="doctor-create">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Create doctor
-            </NavLink>
-        </li>
+
     </ul>
-</div>
 
-@code {
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-
-}
+</nav>
+<!-- sidebar part end -->
+<!--/ sidebar  -->
