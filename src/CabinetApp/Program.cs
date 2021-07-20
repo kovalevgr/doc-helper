@@ -1,9 +1,13 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
+using CabinetApp.Identity;
 using CabinetApp.Services;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +39,15 @@ namespace CabinetApp
                 return GrpcChannel.ForAddress(backendUrl, new GrpcChannelOptions { HttpHandler = httpHandler });
             });
 
+            builder.Services.AddScoped(
+                sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
+
+            builder.Services.AddBlazoredLocalStorage();
+            
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            
             builder.Services.AddScoped<DoctorService>();
 
             await builder.Build().RunAsync();

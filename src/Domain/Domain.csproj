@@ -16,6 +16,8 @@
         <PackageReference Include="HotChocolate.Types" Version="11.3.1" />
         <PackageReference Include="MediatR" Version="9.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.6.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
         <PackageReference Include="ValueObject" Version="0.6.1" />
     </ItemGroup>
 
