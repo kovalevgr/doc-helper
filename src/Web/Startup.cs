@@ -69,6 +69,10 @@ namespace DocHelper.Web
 
             app.UseLocation();
 
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<DoctorService>();

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DocHelper.Domain.Common.Interfaces;
 using DocHelper.Domain.Common.Services;
+using DocHelper.Domain.IdentityModel.Tokens;
 using DocHelper.Domain.Pipeline;
 using DocHelper.Domain.Repository;
 using DocHelper.Infrastructure.Cache.Configuration;
@@ -15,10 +16,13 @@ using DocHelper.Infrastructure.Pipeline.Extension;
 using DocHelper.Infrastructure.Redis.Extensions;
 using DocHelper.Infrastructure.Repository;
 using DocHelper.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TokenOptions = DocHelper.Domain.IdentityModel.Tokens.TokenOptions;
 
 namespace DocHelper.Infrastructure
 {
@@ -65,6 +69,28 @@ namespace DocHelper.Infrastructure
             services.AddScoped<IPipelineExecutor, PipelineExecutor>();
 
             services.ConfigurePipelines();
+
+            // Auth
+            services
+                .AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            configuration.GetSection(nameof(TokenOptions)).Bind(new TokenOptions());
+            services.Configure<TokenOptions>(configuration.GetSection(nameof(TokenOptions)));
+
+            services.AddSingleton<JwtTokenHandler>();
+
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer();
+
+            services
+                .AddOptions<JwtBearerOptions>()
+                .Configure<JwtTokenHandler>((options, service) =>
+                {
+                    options.TokenValidationParameters = service.CreateTokenValidationParameters();
+                });
 
             return services;
         }
